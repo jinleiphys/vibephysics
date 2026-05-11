@@ -1,0 +1,1254 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="同济大学物理科学与工程学院 Vibe Physics 课程建设方案：课程必要性、教学设计、师资分工、考核方式与质量保障。"
+    />
+    <title>Vibe Physics 开课论证 | 同济大学物理科学与工程学院</title>
+    <style>
+      :root {
+        --ink: #0d1624;
+        --muted: #5b6678;
+        --paper: #f3f6fa;
+        --white: #ffffff;
+        --blue: #005baa;
+        --blue-deep: #063b72;
+        --navy: #071b33;
+        --cyan: #21a7c8;
+        --amber: #d88a1f;
+        --red: #bd3a34;
+        --green: #23866c;
+        --line: rgba(13, 22, 36, 0.12);
+        --shadow: 0 24px 80px rgba(7, 29, 58, 0.18);
+        --radius: 8px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          linear-gradient(180deg, rgba(243, 246, 250, 0.98), rgba(243, 246, 250, 1)),
+          linear-gradient(90deg, rgba(0, 91, 170, 0.035) 1px, transparent 1px),
+          linear-gradient(180deg, rgba(0, 91, 170, 0.028) 1px, transparent 1px);
+        background-size: auto, 92px 92px, 92px 92px;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "PingFang SC", "Microsoft YaHei", sans-serif;
+        line-height: 1.6;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .site-header {
+        position: fixed;
+        z-index: 20;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 28px;
+        padding: 18px clamp(20px, 4vw, 56px);
+        color: var(--white);
+        background: linear-gradient(180deg, rgba(3, 15, 31, 0.82), rgba(3, 15, 31, 0.28));
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(16px);
+      }
+
+      .brand {
+        display: grid;
+        gap: 2px;
+        min-width: 260px;
+      }
+
+      .brand strong {
+        font-size: 15px;
+        letter-spacing: 0;
+      }
+
+      .brand span {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 12px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: clamp(12px, 2vw, 26px);
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .nav a {
+        transition: color 0.2s ease;
+      }
+
+      .nav a:hover {
+        color: var(--white);
+      }
+
+      .hero {
+        position: relative;
+        display: grid;
+        min-height: 94svh;
+        padding: 132px clamp(22px, 6vw, 86px) 72px;
+        overflow: hidden;
+        color: var(--white);
+        isolation: isolate;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -3;
+        background-image: url("assets/hero-vibe-physics.png");
+        background-size: cover;
+        background-position: center;
+        transform: scale(1.02);
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        background:
+          linear-gradient(90deg, rgba(2, 13, 28, 0.97) 0%, rgba(2, 13, 28, 0.86) 44%, rgba(2, 13, 28, 0.32) 76%, rgba(2, 13, 28, 0.48) 100%),
+          linear-gradient(180deg, rgba(2, 13, 28, 0.08) 0%, rgba(2, 13, 28, 0.16) 54%, rgba(2, 13, 28, 0.88) 100%);
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(340px, 0.5fr);
+        gap: clamp(30px, 5vw, 72px);
+        align-items: center;
+        width: min(1240px, 100%);
+      }
+
+      .proposal-mark {
+        display: inline-flex;
+        align-items: center;
+        min-height: 34px;
+        margin-bottom: 22px;
+        padding: 5px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        color: rgba(255, 255, 255, 0.78);
+        background: rgba(255, 255, 255, 0.08);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 42px;
+        height: 2px;
+        background: var(--cyan);
+      }
+
+      h1 {
+        margin: 18px 0 0;
+        max-width: 860px;
+        font-family: Georgia, "Times New Roman", "Songti SC", serif;
+        font-size: clamp(46px, 6.5vw, 94px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .hero-subtitle {
+        margin: 28px 0 0;
+        max-width: 790px;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: clamp(18px, 2vw, 25px);
+        line-height: 1.48;
+      }
+
+      .hero-metrics {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1px;
+        width: min(820px, 100%);
+        margin-top: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .metric {
+        padding: 16px;
+        background: rgba(3, 14, 27, 0.42);
+      }
+
+      .metric b {
+        display: block;
+        font-size: 26px;
+        line-height: 1;
+      }
+
+      .metric span {
+        display: block;
+        margin-top: 6px;
+        color: rgba(255, 255, 255, 0.68);
+        font-size: 12px;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 38px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 12px 20px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: var(--radius);
+        font-weight: 900;
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease,
+          color 0.2s ease,
+          border-color 0.2s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+      }
+
+      .button.primary {
+        color: #041426;
+        background: var(--white);
+        border-color: var(--white);
+      }
+
+      .button.secondary {
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .brief-card {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: var(--radius);
+        background: rgba(3, 14, 27, 0.56);
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.24);
+        backdrop-filter: blur(18px);
+      }
+
+      .brief-card h2 {
+        padding: 26px 26px 0;
+        color: var(--white);
+        font-family: inherit;
+        font-size: 21px;
+        line-height: 1.3;
+      }
+
+      .brief-list {
+        display: grid;
+        gap: 1px;
+        margin: 0;
+        padding: 18px 0 0;
+        list-style: none;
+      }
+
+      .brief-list li {
+        position: relative;
+        padding: 18px 26px 18px 34px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .brief-list li::before {
+        content: "";
+        position: absolute;
+        top: 22px;
+        left: 18px;
+        width: 6px;
+        height: 34px;
+        border-radius: 999px;
+        background: var(--cyan);
+      }
+
+      .brief-list b {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--white);
+      }
+
+      .brief-list span {
+        color: rgba(255, 255, 255, 0.72);
+        font-size: 14px;
+      }
+
+      section {
+        padding: clamp(72px, 9vw, 124px) clamp(20px, 5vw, 72px);
+      }
+
+      .wrap {
+        width: min(1180px, 100%);
+        margin: 0 auto;
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.84fr) minmax(280px, 0.46fr);
+        gap: clamp(28px, 6vw, 72px);
+        align-items: end;
+        margin-bottom: clamp(34px, 5vw, 64px);
+      }
+
+      .section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+        color: var(--blue);
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .section-label::before {
+        content: attr(data-index);
+        display: grid;
+        place-items: center;
+        width: 34px;
+        aspect-ratio: 1;
+        border: 1px solid rgba(0, 91, 170, 0.24);
+        border-radius: 50%;
+        background: #eef7ff;
+        letter-spacing: 0;
+      }
+
+      .kicker {
+        margin: 0 0 12px;
+        color: var(--blue);
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", "Songti SC", serif;
+        font-size: clamp(28px, 3.3vw, 48px);
+        line-height: 1.16;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(17px, 1.45vw, 20px);
+      }
+
+      .need {
+        background: var(--white);
+      }
+
+      .reason-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .reason {
+        min-height: 280px;
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 251, 255, 0.98)),
+          linear-gradient(135deg, rgba(0, 91, 170, 0.065), transparent);
+        box-shadow: 0 16px 50px rgba(7, 29, 58, 0.08);
+      }
+
+      .reason .num {
+        display: grid;
+        place-items: center;
+        width: 46px;
+        aspect-ratio: 1;
+        margin-bottom: 22px;
+        color: var(--blue-deep);
+        border: 1px solid rgba(0, 91, 170, 0.28);
+        border-radius: 50%;
+        background: #eef7ff;
+        font-weight: 900;
+      }
+
+      .reason h3,
+      .phase h3,
+      .track h3,
+      .card h3,
+      .risk h3 {
+        margin: 0 0 8px;
+        font-size: 21px;
+        line-height: 1.25;
+      }
+
+      .reason p,
+      .phase p,
+      .track p,
+      .card p,
+      .risk p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .positioning {
+        background:
+          linear-gradient(180deg, #edf4fa, #f7fafc);
+      }
+
+      .position-grid {
+        display: grid;
+        grid-template-columns: minmax(320px, 0.7fr) minmax(0, 1fr);
+        gap: clamp(28px, 5vw, 64px);
+        align-items: stretch;
+      }
+
+      .image-panel {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--white);
+        box-shadow: var(--shadow);
+      }
+
+      .image-panel img {
+        width: 100%;
+        height: 100%;
+        min-height: 420px;
+        object-fit: cover;
+      }
+
+      .principles {
+        display: grid;
+        gap: 12px;
+      }
+
+      .principle {
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.86);
+      }
+
+      .principle b {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--blue-deep);
+        font-size: 18px;
+      }
+
+      .principle span {
+        color: var(--muted);
+      }
+
+      .implementation {
+        background: var(--paper);
+      }
+
+      .phase-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .phase {
+        min-height: 300px;
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--white);
+        box-shadow: 0 14px 44px rgba(7, 29, 58, 0.07);
+      }
+
+      .phase:nth-child(2) time {
+        color: #8a4d07;
+        background: #fff4df;
+      }
+
+      .phase:nth-child(3) time {
+        color: #126854;
+        background: #e8f8f3;
+      }
+
+      .phase:nth-child(4) time {
+        color: #8a2f2a;
+        background: #fff0ef;
+      }
+
+      .phase time {
+        display: inline-flex;
+        min-height: 30px;
+        align-items: center;
+        margin-bottom: 18px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        color: var(--blue-deep);
+        background: #eef7ff;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .phase ul,
+      .card ul,
+      .risk ul {
+        display: grid;
+        gap: 8px;
+        margin: 16px 0 0;
+        padding-left: 18px;
+        color: var(--muted);
+      }
+
+      .tracks {
+        background: var(--white);
+      }
+
+      .track-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .track {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--white);
+        box-shadow: 0 16px 50px rgba(7, 29, 58, 0.08);
+      }
+
+      .track img {
+        width: 100%;
+        height: clamp(260px, 28vw, 380px);
+        object-fit: cover;
+      }
+
+      .track-body {
+        padding: 28px;
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 20px;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+        padding: 5px 10px;
+        border: 1px solid rgba(0, 91, 170, 0.18);
+        border-radius: 999px;
+        color: var(--blue-deep);
+        background: #f0f7ff;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .operation {
+        color: var(--white);
+        background:
+          linear-gradient(90deg, rgba(3, 18, 36, 0.94), rgba(3, 40, 75, 0.82)),
+          url("assets/research-loop.png");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .operation .section-label {
+        color: rgba(255, 255, 255, 0.78);
+      }
+
+      .operation .section-label::before {
+        color: var(--white);
+        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .operation .kicker,
+      .operation .lead {
+        color: rgba(255, 255, 255, 0.74);
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        min-height: 240px;
+        padding: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(14px);
+      }
+
+      .card p,
+      .card ul {
+        color: rgba(255, 255, 255, 0.74);
+      }
+
+      .card h3 {
+        color: var(--white);
+      }
+
+      .assurance {
+        background: var(--paper);
+      }
+
+      .risk-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .risk {
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--white);
+      }
+
+      .risk h3 {
+        color: var(--red);
+      }
+
+      .assessment {
+        background: var(--white);
+      }
+
+      .assessment-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.88fr) minmax(320px, 0.56fr);
+        gap: clamp(28px, 5vw, 66px);
+        align-items: start;
+      }
+
+      .rubric {
+        display: grid;
+        gap: 12px;
+      }
+
+      .rubric-row {
+        display: grid;
+        grid-template-columns: 92px 1fr;
+        gap: 18px;
+        align-items: center;
+        padding: 18px 20px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: #fbfdff;
+      }
+
+      .rubric-row b {
+        color: var(--blue);
+        font-size: 24px;
+      }
+
+      .rubric-row span {
+        color: var(--muted);
+      }
+
+      .output-box {
+        padding: 26px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(135deg, rgba(0, 91, 170, 0.08), rgba(217, 138, 31, 0.08)),
+          var(--white);
+        box-shadow: 0 16px 50px rgba(7, 29, 58, 0.08);
+      }
+
+      .output-box h3 {
+        margin: 0 0 16px;
+        font-size: 22px;
+      }
+
+      .output-box ul {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding-left: 20px;
+        color: var(--muted);
+      }
+
+      .decision {
+        background: var(--navy);
+        color: var(--white);
+      }
+
+      .decision-box {
+        display: grid;
+        grid-template-columns: minmax(0, 0.78fr) minmax(280px, 0.48fr);
+        gap: clamp(28px, 5vw, 60px);
+        align-items: center;
+        padding: clamp(28px, 5vw, 56px);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(120deg, rgba(0, 91, 170, 0.18), rgba(34, 168, 199, 0.12) 46%, rgba(217, 138, 28, 0.14)),
+          rgba(255, 255, 255, 0.05);
+      }
+
+      .decision .kicker,
+      .decision .lead {
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      .decision p {
+        margin: 14px 0 0;
+        color: rgba(255, 255, 255, 0.74);
+      }
+
+      .decision-list {
+        display: grid;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .decision-list li {
+        padding: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.07);
+      }
+
+      .footer {
+        padding: 34px clamp(20px, 5vw, 72px);
+        color: rgba(255, 255, 255, 0.68);
+        background: #040a12;
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        width: min(1180px, 100%);
+        margin: 0 auto;
+      }
+
+      .js .fade-in {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+
+      .js .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 980px) {
+        .site-header {
+          position: absolute;
+          align-items: flex-start;
+        }
+
+        .nav {
+          display: none;
+        }
+
+        .hero {
+          min-height: auto;
+          padding-top: 118px;
+        }
+
+        .hero-grid,
+        .section-head,
+        .position-grid,
+        .assessment-grid,
+        .decision-box {
+          grid-template-columns: 1fr;
+        }
+
+        .reason-grid,
+        .phase-grid,
+        .card-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        .reason-grid,
+        .phase-grid,
+        .track-grid,
+        .card-grid,
+        .risk-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .brief-card h2,
+        .track-body,
+        .phase,
+        .card,
+        .risk,
+        .output-box {
+          padding: 20px;
+        }
+
+        .rubric-row {
+          grid-template-columns: 72px 1fr;
+        }
+
+        .footer-inner {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Vibe Physics 开课论证">
+        <strong>同济大学物理科学与工程学院</strong>
+        <span>智能科研方法课程建设方案</span>
+      </a>
+      <nav class="nav" aria-label="页面导航">
+        <a href="#need">建设依据</a>
+        <a href="#implementation">教学方案</a>
+        <a href="#tracks">师资分工</a>
+        <a href="#assurance">质量保障</a>
+        <a href="#decision">实施建议</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="课程开课论证首页">
+        <div class="hero-grid">
+          <div class="fade-in">
+            <div class="proposal-mark">拟开课程 | 32 学时（45 分钟/学时） | 项目制教学</div>
+            <div class="eyebrow">Course Development Proposal</div>
+            <h1>面向智能科研能力培养的物理方法课</h1>
+            <p class="hero-subtitle">
+              本课程面向高年级本科生与研究生，围绕物理建模、科研计算、实验数据分析、结果验证和研究表达，建立一套可教学、可考核、可复现的智能科研训练方案。
+            </p>
+            <div class="hero-metrics" aria-label="课程关键参数">
+              <div class="metric">
+                <b>32</b>
+                <span>总学时，45 分钟/学时</span>
+              </div>
+              <div class="metric">
+                <b>16</b>
+                <span>次课，每次 2 学时</span>
+              </div>
+              <div class="metric">
+                <b>2</b>
+                <span>教师合开</span>
+              </div>
+              <div class="metric">
+                <b>1</b>
+                <span>研究原型</span>
+              </div>
+            </div>
+            <div class="hero-actions">
+              <a class="button primary" href="#need">查看建设依据</a>
+              <a class="button secondary" href="#implementation">查看教学安排</a>
+            </div>
+          </div>
+          <aside class="brief-card fade-in" aria-label="汇报要点">
+            <h2>立项摘要</h2>
+            <ul class="brief-list">
+              <li>
+                <b>课程性质：科研方法训练</b>
+                <span>课程重点不是软件教学，而是训练学生在智能工具参与下完成问题定义、模型实现、结果审查和可复现表达。</span>
+              </li>
+              <li>
+                <b>学科基础：学院案例支撑</b>
+                <span>核反应与散射、光学与光场调控均包含计算建模、实验数据、参数拟合和误差分析，可形成有辨识度的案例库。</span>
+              </li>
+              <li>
+                <b>实施路径：小班项目制</b>
+                <span>课程采用 16 次课组织，通过课堂实验和期末项目形成代码仓库、研究短文、交互日志和验证报告。</span>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="need" id="need">
+        <div class="wrap">
+          <div class="section-head fade-in">
+            <div>
+              <p class="section-label" data-index="01">建设依据</p>
+              <h2>智能工具已经进入科研过程，物理教学需要把规范和验证前置。</h2>
+            </div>
+            <p class="lead">
+              学生已经在课外使用大模型辅助阅读、编程、作图和写作。学院层面的课程建设可以把这种自发使用转化为有规范、有边界、有评价标准的科研训练。
+            </p>
+          </div>
+          <div class="reason-grid">
+            <article class="reason fade-in">
+              <div class="num">01</div>
+              <h3>现实基础：学生已经在使用</h3>
+              <p>
+                与其把智能工具视为课外变量，不如在课程中明确使用边界。物理学院应把量纲、极限、守恒律、基准算例、误差和复现作为统一要求。
+              </p>
+            </article>
+            <article class="reason fade-in">
+              <div class="num">02</div>
+              <h3>培养缺口：会运行不等于会研究</h3>
+              <p>
+                传统数值课强调算法和方程，通用工具课强调软件操作。本课程补上中间层：如何把物理问题转化为可执行任务，并对计算结果作出可信判断。
+              </p>
+            </article>
+            <article class="reason fade-in">
+              <div class="num">03</div>
+              <h3>学院优势：有真实学科场景</h3>
+              <p>
+                核反应、散射、光学实验和傅里叶光学都天然涉及模型、数据、拟合和误差。以这些内容组织课程，可以体现同济物理学院的学科特点。
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="positioning" id="positioning">
+        <div class="wrap position-grid">
+          <div class="image-panel fade-in">
+            <img src="assets/research-loop.png" alt="AI 辅助物理科研闭环" />
+          </div>
+          <div class="fade-in">
+            <p class="section-label" data-index="02">课程定位</p>
+            <h2>把智能工具纳入物理研究训练，而不是替代基础训练。</h2>
+            <div class="principles">
+              <div class="principle">
+                <b>不以工具为中心</b>
+                <span>不围绕某个软件或平台设计课程。工具会变化，物理问题定义、模型审查和结果验证的训练要求不会变化。</span>
+              </div>
+              <div class="principle">
+                <b>以物理问题为中心</b>
+                <span>每个练习都必须有模型假设、方程、边界条件、输入输出和验证标准。</span>
+              </div>
+              <div class="principle">
+                <b>以可信验证为底线</b>
+                <span>代码、推导或文献整理都不能直接作为结论。学生必须给出解析极限、基准比较、收敛性检查和误差说明。</span>
+              </div>
+              <div class="principle">
+                <b>以可复现产出为终点</b>
+                <span>最终交付代码仓库、研究短文、交互日志、验证清单和智能工具使用说明，便于教师检查过程和结果。</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="implementation" id="implementation">
+        <div class="wrap">
+          <div class="section-head fade-in">
+            <div>
+              <p class="section-label" data-index="03">教学方案</p>
+              <h2>32 学时按 16 次课组织，最后形成一个小型研究原型。</h2>
+            </div>
+            <p class="lead">
+              按同济大学 45 分钟一个学时计算，本课程每次课 2 学时，共 90 分钟。每次课按“概念讲解、现场示范、学生实验、验证复盘”组织，并留下可检查的代码、图像、日志或验证材料。
+            </p>
+          </div>
+          <div class="phase-grid">
+            <article class="phase fade-in">
+              <time>第 1 至 4 课</time>
+              <h3>阶段一：问题定义与使用规范</h3>
+              <p>明确课程边界，训练学生把模糊物理想法转化为有假设、有方程、有验证标准的任务。</p>
+              <ul>
+                <li>课程方法与基本规范</li>
+                <li>物理任务描述模板</li>
+                <li>文献阅读与假引用识别</li>
+                <li>从想法到原型</li>
+              </ul>
+            </article>
+            <article class="phase fade-in">
+              <time>第 5 至 9 课</time>
+              <h3>阶段二：科研计算与可信验证</h3>
+              <p>围绕代码、数据、图像、推导和模拟，建立每个项目必须具备的验证链条。</p>
+              <ul>
+                <li>量纲、极限、守恒律</li>
+                <li>拟合与误差条</li>
+                <li>SymPy 与 LaTeX 推导检查</li>
+                <li>ODE/PDE 与 Monte Carlo</li>
+              </ul>
+            </article>
+            <article class="phase fade-in">
+              <time>第 10 至 13 课</time>
+              <h3>阶段三：项目流程与研究表达</h3>
+              <p>围绕反问题、分工协作、版本管理和论文式表达，建立完整的项目工作流。</p>
+              <ul>
+                <li>反问题与 UQ</li>
+                <li>计划、实现、审查、写作分工</li>
+                <li>Git、环境和交互日志</li>
+                <li>研究短文写作</li>
+              </ul>
+            </article>
+            <article class="phase fade-in">
+              <time>第 14 至 16 课</time>
+              <h3>阶段四：伦理规范与项目展示</h3>
+              <p>通过项目冲刺、同行评阅和最终答辩，检查学生是否能够解释模型、代码、数据和验证结果。</p>
+              <ul>
+                <li>智能工具使用说明</li>
+                <li>学术诚信与数据边界</li>
+                <li>项目工作坊</li>
+                <li>8 分钟展示与答辩</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="tracks" id="tracks">
+        <div class="wrap">
+          <div class="section-head fade-in">
+            <div>
+              <p class="section-label" data-index="04">师资分工</p>
+              <h2>建议采用双主线合开，兼顾理论计算与光学实验数据。</h2>
+            </div>
+            <p class="lead">
+              一条主线偏理论计算和反问题，一条主线偏光学实验、成像和数据分析。共同目标不是堆叠知识点，而是让学生在不同物理场景中反复练习同一套研究规范。
+            </p>
+          </div>
+          <div class="track-grid">
+            <article class="track fade-in">
+              <img src="assets/scattering-module.png" alt="核反应与散射案例" />
+              <div class="track-body">
+                <h3>主线 A：核反应、散射与反问题</h3>
+                <p>
+                  适合展示模型构建、数值求解、参数拟合、不确定性量化和基准比较。可由核理论方向教师主讲，承担理论计算与反问题训练。
+                </p>
+                <div class="tag-row">
+                  <span class="tag">Woods-Saxon 势</span>
+                  <span class="tag">弹性散射</span>
+                  <span class="tag">Optical potential</span>
+                  <span class="tag">UQ</span>
+                  <span class="tag">Reduced model</span>
+                </div>
+              </div>
+            </article>
+            <article class="track fade-in">
+              <img src="assets/optics-module.png" alt="光学与光场调控案例" />
+              <div class="track-body">
+                <h3>主线 B：光学、成像与实验数据</h3>
+                <p>
+                  适合展示从实验图像和光强数据出发的分析流程。光学方向教师可负责干涉、衍射、傅里叶光学、光束传播和实验误差。
+                </p>
+                <div class="tag-row">
+                  <span class="tag">干涉与衍射</span>
+                  <span class="tag">Fourier optics</span>
+                  <span class="tag">Gaussian beam</span>
+                  <span class="tag">成像拟合</span>
+                  <span class="tag">实验误差</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="operation" id="operation">
+        <div class="wrap">
+          <div class="section-head fade-in">
+            <div>
+              <p class="section-label" data-index="05">教学组织</p>
+              <h2>课程组织的关键，是把过程材料和验证要求固定下来。</h2>
+            </div>
+            <p class="lead">
+              建议采用小组制、过程性评价和统一项目模板。教师不需要每节课讲满，而是用现场示范和实验室式指导建立学生的操作标准。
+            </p>
+          </div>
+          <div class="card-grid">
+            <article class="card fade-in">
+              <h3>课堂结构</h3>
+              <ul>
+                <li>15 分钟：概念与物理背景</li>
+                <li>20 分钟：教师现场示范</li>
+                <li>45 分钟：学生课堂实验</li>
+                <li>10 分钟：验证复盘</li>
+              </ul>
+            </article>
+            <article class="card fade-in">
+              <h3>项目组织</h3>
+              <ul>
+                <li>2 到 3 人一组</li>
+                <li>第 3 课确定方向</li>
+                <li>第 8 课提交中期结果</li>
+                <li>第 16 课展示和答辩</li>
+              </ul>
+            </article>
+            <article class="card fade-in">
+              <h3>统一交付模板</h3>
+              <ul>
+                <li>Git 仓库和环境文件</li>
+                <li>交互日志</li>
+                <li>验证清单</li>
+                <li>研究短文和使用说明</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="assurance" id="assurance">
+        <div class="wrap">
+          <div class="section-head fade-in">
+            <div>
+              <p class="section-label" data-index="06">质量保障</p>
+              <h2>智能工具进入课堂后，质量控制必须写进课程规则。</h2>
+            </div>
+            <p class="lead">
+              课程制度必须明确：工具输出不能直接成为结论，所有关键结果都要经过物理审查、基准比较和可复现检查。
+            </p>
+          </div>
+          <div class="risk-grid">
+            <article class="risk fade-in">
+              <h3>风险一：学生过度依赖工具完成任务</h3>
+              <p>应对办法：评分重心放在验证、日志、错误修正和答辩，而不是代码量。学生必须解释每个关键公式、参数和图像。</p>
+            </article>
+            <article class="risk fade-in">
+              <h3>风险二：假文献和错误引用</h3>
+              <p>应对办法：所有参考文献必须提交 DOI、arXiv 或出版社页面。无法核验来源的引用不计入有效文献。</p>
+            </article>
+            <article class="risk fade-in">
+              <h3>风险三：错误代码看起来能运行</h3>
+              <p>应对办法：每个项目至少包含一个解析极限、一个基准算例、一次收敛测试和一张合理性检查图。</p>
+            </article>
+            <article class="risk fade-in">
+              <h3>风险四：学术伦理边界不清</h3>
+              <p>应对办法：最终报告必须包含智能工具使用说明，列明工具、用途、人工核查和最终责任。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="assessment" id="assessment">
+        <div class="wrap assessment-grid">
+          <div class="fade-in">
+            <p class="section-label" data-index="07">考核方式</p>
+            <h2>建议采用过程性档案评价，不设传统闭卷考试。</h2>
+            <div class="rubric" aria-label="评分方式">
+              <div class="rubric-row">
+                <b>50%</b>
+                <span>期末项目：代码、报告和展示</span>
+              </div>
+              <div class="rubric-row">
+                <b>20%</b>
+                <span>验证质量：基准比较、误差分析、收敛性和物理解释</span>
+              </div>
+              <div class="rubric-row">
+                <b>15%</b>
+                <span>交互日志：任务描述迭代、错误记录和人工修正</span>
+              </div>
+              <div class="rubric-row">
+                <b>10%</b>
+                <span>作业与课堂实验</span>
+              </div>
+              <div class="rubric-row">
+                <b>5%</b>
+                <span>课堂讨论与同行评阅</span>
+              </div>
+            </div>
+          </div>
+          <aside class="output-box fade-in">
+            <h3>最终交付件</h3>
+            <ul>
+              <li>一个可运行、可复现的物理研究原型</li>
+              <li>Git 仓库，包含环境文件、数据、notebooks、tests、figures 和交互日志</li>
+              <li>4 到 6 页研究短文，含模型、方法、验证、结果和局限性</li>
+              <li>验证清单，至少覆盖量纲、解析极限、基准比较、收敛性和误差</li>
+              <li>智能工具使用说明，说明使用边界和人工责任</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="decision" id="decision">
+        <div class="wrap decision-box fade-in">
+          <div>
+            <p class="section-label" data-index="08">实施建议</p>
+            <h2>建议先以 32 学时试点课程启动。</h2>
+            <p>
+              课程定位为高年级本科生和研究生共用的科研方法课。32 学时按 16 次课安排，每次 2 学时，共 90 分钟。第一轮以小班试点为宜，人数控制在 25 到 40 人，方便教师检查交互日志、代码仓库和验证报告。成熟后可扩展为学院智能科研训练平台。
+            </p>
+            <p>
+              对外可参考 Rice University “Vibe Coding for Research” 等课程的科研计算取向；对内应突出同济物理学院自己的核反应、散射、光学与成像案例。
+            </p>
+          </div>
+          <ul class="decision-list">
+            <li><b>开课名称：</b>Vibe Physics：智能工具辅助物理科研方法与实践</li>
+            <li><b>开课方式：</b>2 位教师合开，核反应/散射 + 光学/实验数据双主线</li>
+            <li><b>资源需求：</b>机房或自带电脑，统一 Python 环境，Git 平台，合规智能工具账号</li>
+            <li><b>可衡量成效：</b>每组形成可复现项目、研究短文、交互日志和验证报告</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <span>Vibe Physics 课程建设方案</span>
+        <span>同济大学物理科学与工程学院</span>
+      </div>
+    </footer>
+
+    <script>
+      document.documentElement.classList.add("js");
+
+      const visibleClass = "visible";
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add(visibleClass);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.16 }
+      );
+
+      document.querySelectorAll(".fade-in").forEach((element) => observer.observe(element));
+    </script>
+  </body>
+</html>
