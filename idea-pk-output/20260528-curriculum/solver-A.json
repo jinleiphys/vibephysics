@@ -1,0 +1,84 @@
+{
+  "solver": "A",
+  "stance_summary": "Stop watering down a numerical-methods syllabus for 大一 and instead design the course around an AI-era thinking habit the rest of the physics curriculum will never teach.",
+  "anchored_assumption": "The user is silently treating this as a numerical-methods course transplanted to 大一, so every redesign just re-picks a topic list (RK4, SymPy, FFT, MC, Bootstrap, ...) and tunes its depth; the course-shape itself (lecture topic per day, group software project, project-deliverable as exam) is never up for negotiation. The contrarian move is to keep the calendar (40 学时 / 10 日 / 2 教师) and tear up the topic-list-as-spine.",
+  "candidates": [
+    {
+      "id": "A1",
+      "one_line": "Reframe the course as a 10-day AI-output-audit bootcamp: students do not write much code themselves, they spend the 40 学时 catching planted bugs in AI-generated physics solutions, building a 'distrust then verify' reflex that no later physics course will teach.",
+      "first_concrete_step": "Today, pick ONE 大一-accessible problem (e.g., projectile with air drag, simple pendulum large-angle, RC circuit charging) and ask Claude/GPT-4 to solve it three ways, then by hand annotate every wrong, lazy, or unverifiable claim in the AI output on a single A4 sheet; that sheet becomes the seed of the 'famous bugs' catalog and tells you within an afternoon whether the audit mode has enough material for 10 days.",
+      "cost_estimate": "Design: ~30 h to build a 20-card 'famous bug' library (each card = AI prompt + AI's wrong answer + the physical/dimensional/limit check that exposes it). Per-cycle teach cost: low after year 1, because the catalog is reusable and grows.",
+      "info_gain": "Works: you learn whether 大一 students, with only 普物 + 高数, can reliably catch dimensional / limit / sign / order-of-magnitude errors in AI output after 1 week of practice, which is the central empirical question of any AI-augmented physics curriculum. Fails: you learn the floor where audit-mode breaks (probably any error requiring 数理方法 or 理论力学), which itself tells you where 大一-level AI-collaboration must defer to human-only work.",
+      "risk": "Worst case ~30 h sunk if the bug catalog turns out to be too easy (students catch everything by Day 2) or too hard (they catch nothing without 专业物理). Mitigation: the Day-1 pilot above (1 problem, 3 AI solutions, 1 afternoon) detects this before any syllabus is written.",
+      "orthogonality_to_tried": [
+        {
+          "tried_item": "T1. Course shell modeled as 32 学时 / 16 sessions × 2 学时, framed as undergraduate research-method training for general physics undergraduates.",
+          "difference": "T1 trains students to do research method themselves; A1 makes their primary skill auditing someone else's (AI's) research output, which is the opposite epistemic posture."
+        },
+        {
+          "tried_item": "T2. 40 学时 / 10 教学日 / 4-phase 大纲 with core content drawn from upper-undergraduate / early-graduate numerical methods (RK4, SymPy, FFT, MC, Bootstrap, UQ).",
+          "difference": "T2's spine is algorithms-to-implement; A1's spine is a bug catalog of AI failures, and none of RK4 / SymPy / FFT / MC / Bootstrap appears as a teach-topic — they appear only when an AI uses them wrong and a student must catch it."
+        }
+      ],
+      "dependencies": "Access to one paid AI tool (Claude/GPT-4) for the instructor to generate and version-pin 20 bug cards. No new course platform needed. No external dataset. Two instructors split as Producer (generates AI output live in class) + Auditor (leads the critique)."
+    },
+    {
+      "id": "A2",
+      "one_line": "Throw out the 4-phase topic structure and build the course around ONE flagship 10-day thread, e.g. 'reproduce Galileo's inclined-plane discovery from raw video frames with an AI partner', so the 大纲 is the scaffolding around a single end-to-end story.",
+      "first_concrete_step": "Today, shoot a 30-second phone video of a ball rolling down a board in your office, hand it to Claude/ChatGPT with vision and ask it to extract (x, t) data, fit a model, and tell you the acceleration; note where the AI helps, where it fakes, and where 大一 普物 is enough to check it — that single video session tells you in 2 hours whether the flagship-project model has enough texture for 40 学时.",
+      "cost_estimate": "Design: ~25 h to script the 10-day arc (one milestone per teach-day) and prepare 2 backup flagships in case the lead one fails for a given cohort. Per-cycle teach cost: medium; instructors must be present for the live phases, not just lecturing.",
+      "info_gain": "Works: you learn whether a single coherent 10-day project beats 10 disconnected mini-topics at building a research-attention span in 大一. Fails: you learn the failure mode of monolithic projects in a freshman audience (boredom by Day 5? groups stuck on Day 3? all five groups converge to the same answer?), which calibrates the granularity at which freshmen need fresh problems.",
+      "risk": "Worst case ~25 h sunk + one stuck cohort if the chosen flagship is too narrow (students finish on Day 6 and have 4 empty days) or too wide (groups stall and the instructor must rescue them, violating reproducibility-by-TA). Mitigation: pre-test the flagship on yourself or a willing 大一 RA before the syllabus is locked.",
+      "orthogonality_to_tried": [
+        {
+          "tried_item": "T1. Course shell modeled as 32 学时 / 16 sessions × 2 学时, framed as undergraduate research-method training for general physics undergraduates.",
+          "difference": "T1's 16 sessions are 16 atomic topics; A2 collapses all 10 days into one continuous narrative with daily milestones, treating discretization-into-topics as the antipattern."
+        },
+        {
+          "tried_item": "T2. 40 学时 / 10 教学日 / 4-phase 大纲 with core content drawn from upper-undergraduate / early-graduate numerical methods (RK4, SymPy, FFT, MC, Bootstrap, UQ).",
+          "difference": "T2 partitions 10 days into 4 topical phases; A2 deletes the phase structure entirely and replaces it with project milestones (Day 1 raw data → Day 3 first ugly fit → Day 6 model comparison → Day 9 report), and the topic list emerges only as whatever the flagship problem demands."
+        }
+      ],
+      "dependencies": "One vetted flagship problem with (a) raw data accessible without specialized equipment, (b) a known physical answer for the instructor to check against, (c) genuine room for AI assistance. Galileo's inclined plane, Foucault pendulum, free-fall, simple-circuit RC discharge, dripping-faucet period are all 大一-accessible candidates."
+    },
+    {
+      "id": "A3",
+      "one_line": "Inverted-instructor model: drop the A-track / B-track topical split, and reassign the two instructors as Prompter (proposes AI usage in front of class) + Adversary (challenges the AI output live), so the course teaches a stance toward AI through 20 sessions of live two-person sparring instead of 20 sessions of lecture.",
+      "first_concrete_step": "Today, schedule a 90-minute mock session with the second instructor on one shared 大一 problem (e.g. 'estimate the terminal velocity of a coffee filter'); one of you plays Prompter and queries AI live on a projected screen, the other plays Adversary and forces clarifications, dimensional checks, and limit cases; record the session and watch it back to see whether the format has enough natural rhythm to fill 40 学时.",
+      "cost_estimate": "Design: ~15 h to write the 'role-card' protocol (what Prompter can / cannot do, what Adversary must always force) plus a shared corpus of ~20 problems. Per-cycle teach cost: high in instructor time per session (both must be live), low in prep per problem after year 1.",
+      "info_gain": "Works: you learn whether students absorb AI-collaboration skills better by watching skilled adults negotiate with AI in real time than by being told algorithm names — a hypothesis that the entire AI-pair-programming community already implicitly bets on, but that no Chinese physics department has tested. Fails: you learn the cognitive ceiling of pure-observation learning for freshmen (probably ~half a day before they need to do something themselves), which calibrates how much sparring vs. hands-on the final design needs.",
+      "risk": "Worst case the second instructor cannot or will not commit to live-session attendance, collapsing the model to single-instructor lecture. Sunk cost ~15 h. Mitigation: the Day-1 pilot above is also a hiring filter — if the co-instructor cannot sustain 90 minutes of live adversarial sparring, the format is wrong for this team and you find out today, not in week 2.",
+      "orthogonality_to_tried": [
+        {
+          "tried_item": "T1. Course shell modeled as 32 学时 / 16 sessions × 2 学时, framed as undergraduate research-method training for general physics undergraduates.",
+          "difference": "T1 has instructors lecturing on research-method content; A3 has instructors performing AI collaboration in front of the class, with method visible by demonstration rather than by exposition."
+        },
+        {
+          "tried_item": "T2. 40 学时 / 10 教学日 / 4-phase 大纲 with core content drawn from upper-undergraduate / early-graduate numerical methods (RK4, SymPy, FFT, MC, Bootstrap, UQ).",
+          "difference": "T2 splits 2 instructors by topic (A 物理建模 / B 数据驱动); A3 forbids topical split and splits them by role (Prompter / Adversary) on the same problem, so neither instructor 'owns' a phase."
+        }
+      ],
+      "dependencies": "Genuine willingness from the second instructor to share screen time and to play Adversary in front of students (this is the binding constraint). Projector + recording setup. Shared problem corpus, ~20 prompts."
+    },
+    {
+      "id": "A4",
+      "one_line": "Modeling-first, coding-last: Days 1–4 use only spreadsheets, GeoGebra, Desmos, and back-of-envelope sketches to build the habit of dimensional analysis, idealization, model comparison, and order-of-magnitude estimation; Python and AI code-generation only enter Day 5 onward, after the modeling reflex is in place.",
+      "first_concrete_step": "Today, pick three 大一-level questions (e.g. 'how high can a person jump on the Moon?', 'how long does a cup of coffee take to cool to drinkable?', 'how much does the Eiffel Tower bend in the wind?'), solve each in a single sheet using only dimensional analysis + estimation + a Desmos graph, no code, and time yourself; if you cannot do all three in 90 minutes, the modeling-first day is too thin and you adjust before locking the syllabus.",
+      "cost_estimate": "Design: ~20 h to assemble a Fermi-style problem bank (~30 problems) and to write the 'when does Python enter' contract. Per-cycle teach cost: low; Fermi problems are infinitely reusable.",
+      "info_gain": "Works: you learn whether 大一 students who arrive with 普物 reflexes can build dimensional / scaling / limit intuition in 4 days, which is the foundation any later numerical course silently assumes they already have. Fails: you learn at what point coding stops being a labor-saving tool and becomes a thinking crutch for freshmen, which is exactly the calibration the broader AI-in-physics-education community is missing.",
+      "risk": "Worst case ~20 h sunk and a course that feels 'too low-tech' for a course called 'AI 辅助' — the second half must visibly use AI for the title to be honest. Mitigation: Days 5–10 must remain genuinely AI-heavy; A4 is a re-ordering, not a deletion.",
+      "orthogonality_to_tried": [
+        {
+          "tried_item": "T1. Course shell modeled as 32 学时 / 16 sessions × 2 学时, framed as undergraduate research-method training for general physics undergraduates.",
+          "difference": "T1 frames research method as a unified skill set delivered across 16 sessions; A4 separates modeling-skill (the first 4 days, no code at all) from coding-skill (the last 6, AI-assisted) and refuses to mix them until the modeling habit is observable."
+        },
+        {
+          "tried_item": "T2. 40 学时 / 10 教学日 / 4-phase 大纲 with core content drawn from upper-undergraduate / early-graduate numerical methods (RK4, SymPy, FFT, MC, Bootstrap, UQ).",
+          "difference": "T2 introduces RK4 / SymPy / FFT in the very first technical phase (Day 3–5); A4 forbids any of those tools to appear before Day 5 and replaces the first phase with dimensional analysis, estimation, and idealization — none of which appear anywhere in T2."
+        }
+      ],
+      "dependencies": "Access to Desmos / GeoGebra (free, browser-based, no install). A Fermi-problem bank (Weinstein's 'Guesstimation' or Mahajan's 'Street-Fighting Mathematics' are direct sources; ~1 evening to extract 30 problems). No new software for students."
+    }
+  ],
+  "convergence_note": "Solver B (methodologist / cheapest-test stance) might independently propose something near A1 (audit-as-deliverable) because it has the cleanest examinable rubric of the four, and possibly a milder version of A4 (estimation before computation) because it is a well-known cheap-test pattern; A2's single-flagship and A3's role-inverted instructor are the moves most likely to be uniquely contrarian."
+}

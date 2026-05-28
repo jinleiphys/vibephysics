@@ -1,0 +1,110 @@
+{
+  "verdicts": [
+    {
+      "candidate_id": "A1",
+      "verdict": "kept",
+      "rationale": "Audit-as-spine genuinely inverts T2's algorithm-list spine; first-step (one problem, three AI solutions, one A4 of annotations) is sub-day, uses tools the user already has, and is concrete to this stuck-point. Info-gain is symmetric (works tells you the audit floor, fails tells you where 大一 audit breaks).",
+      "redundant_with": null,
+      "info_gain_correction": null,
+      "first_step_correction": null
+    },
+    {
+      "candidate_id": "A2",
+      "verdict": "kept",
+      "rationale": "Single-flagship narrative is structurally orthogonal to both T1's 16-atomic-topics and T2's 4-phase split. First-step (2-hour phone-video session with Claude vision) is genuinely sub-day and on-topic. Info-gain symmetric: success calibrates monolithic-project viability, failure exposes freshman granularity needs.",
+      "redundant_with": null,
+      "info_gain_correction": null,
+      "first_step_correction": null
+    },
+    {
+      "candidate_id": "A3",
+      "verdict": "kept",
+      "rationale": "Role-split (Prompter/Adversary) is orthogonal to T2's topic-split (A 物理 / B 数据). First-step is a 90-min mock session with the second instructor today; bounded, in-house, on-topic. Info-gain real on both branches (success validates demonstration-learning; failure quantifies observation-only ceiling).",
+      "redundant_with": null,
+      "info_gain_correction": null,
+      "first_step_correction": null
+    },
+    {
+      "candidate_id": "A4",
+      "verdict": "kept",
+      "rationale": "Modeling-first / coding-last is a genuine re-sequencing not present in either tried item (T2 puts RK4+SymPy in Day 3-5). First-step (three Fermi problems in 90 minutes, no code) is sub-day, uses only Desmos/paper. Info-gain symmetric: tells you whether 大一 普物 reflexes carry dimensional intuition or not.",
+      "redundant_with": null,
+      "info_gain_correction": null,
+      "first_step_correction": null
+    },
+    {
+      "candidate_id": "B1",
+      "verdict": "refine_first_step",
+      "rationale": "Diagnostic clinic is high info-gain and disambiguates H2/H3/H4 cleanly, but the first concrete step bundles WeChat recruitment + protocol drafting + trap-code writing + Saturday session (multi-day chain). Pull the diagnostic-protocol draft forward as today's standalone first step; the Saturday session is week-1 work, not today.",
+      "redundant_with": null,
+      "info_gain_correction": null,
+      "first_step_correction": "Today: write the 1-page 3-station diagnostic protocol (Station 1 pencil-ODE, Station 2 AI+laptop x(t) plot, Station 3 sign-flip-trap critique) AND author the wrong-sign-trap reference code (~1 h). Defer recruitment + session itself to a separate scheduling action; today's deliverable is the protocol + trap-code committed to repo, decided in a single 2-3 h block."
+    },
+    {
+      "candidate_id": "B2",
+      "verdict": "refine_first_step",
+      "rationale": "External-curriculum calibration is a real diagonal move (T1/T2 both invented from scratch), and the bug-injection rubric is concrete. But the first step bundles 'find module + inject bug + recruit student + run 3-hour Zoom tomorrow morning' which is two distinct sub-actions + an external dependency; the 1-on-1 student session also is not feasible-today. Restrict today's action to the instructor-side module audit; defer the student run.",
+      "redundant_with": null,
+      "info_gain_correction": null,
+      "first_step_correction": "Today: pull MIT 8.S50 and Rice Vibe Coding for Research public materials, identify the single shortest freshman-accessible module (3 h student-time budget, scene-to-plot end-to-end), and run it yourself in a 2-h block while noting where 大一 普物 vocabulary breaks. The student walk-through and bug-injection are next-day actions, not today."
+    },
+    {
+      "candidate_id": "B3",
+      "verdict": "kept",
+      "rationale": "Day-1-as-unit-test reverses T1/T2's top-down syllabus commitment; first step is explicitly written as 'write the single page + the four 45-min blocks today' (the pilot itself is correctly deferred to next week, not bundled into today). Info-gain symmetric on pacing constant. Genuinely orthogonal experimental-design move that A's reports do not duplicate.",
+      "redundant_with": null,
+      "info_gain_correction": null,
+      "first_step_correction": null
+    },
+    {
+      "candidate_id": "B4",
+      "verdict": "kept",
+      "rationale": "Spreadsheet-only Day-1 is a sharp H2-vs-H3 disambiguator that A's reports do not replicate (A4 reorders but still uses Python second half; B4 strips AI/Python entirely as a probe). First step is writing one Excel template + answer key today, sub-day, on-topic. Info-gain symmetric and the cleanest single experiment in the space.",
+      "redundant_with": null,
+      "info_gain_correction": null,
+      "first_step_correction": null
+    },
+    {
+      "candidate_id": "B5",
+      "verdict": "kept",
+      "rationale": "Rubric-before-syllabus + fabricated-artifact discrimination test is orthogonal to all of T1/T2/A1-A4 (none of those test the assessment instrument first). First step (write rubric + fabricate two artifacts + blind co-grade with second instructor) is 7 h, sub-day, in-house, no students needed. Info-gain symmetric (discriminates or doesn't).",
+      "redundant_with": null,
+      "info_gain_correction": null,
+      "first_step_correction": null
+    }
+  ],
+  "diagonal": {
+    "candidate_id": "A3",
+    "rationale": "A3 (role-split Prompter/Adversary on the same problem) is the candidate most foreign to both tried items' framings — T1/T2 and A1/A2/A4/B1-B5 all treat the syllabus or its diagnostic as the unit, while A3 treats the in-class human-AI interaction itself as the deliverable and explicitly forbids the topical split that anchored T2."
+  },
+  "cheapest_disambiguator": {
+    "candidate_id": "B5",
+    "rationale": "7 instructor-hours today, zero student involvement, no scheduling chain, and a binary outcome (rubric discriminates or it does not) that conditions every downstream design choice in B1/B3/B4 and A1/A2 — highest info-gain-per-hour among today-startable survivors."
+  },
+  "incompatible_pairs": [
+    {
+      "a": "A4",
+      "b": "B4",
+      "reason": "Both want Day-1 to be no-AI / no-Python (Fermi-paper vs spreadsheet); running both pilots in the same diagnostic slot wastes the second cohort, and committing to one as the syllabus opener excludes the other's framing."
+    },
+    {
+      "a": "A2",
+      "b": "B3",
+      "reason": "A2 deletes per-day topical boundaries in favor of one continuous 10-day flagship narrative; B3 makes the 1-day unit the smallest replicable atom — the two impose opposite course-geometry constraints and cannot both define Days 2-10."
+    },
+    {
+      "a": "A1",
+      "b": "A4",
+      "reason": "A1 makes audit the spine of all 10 days; A4 forbids any code (and thus any AI code-audit) before Day 5 — incompatible Day-1 framings, you must pick one starting epistemic posture."
+    }
+  ],
+  "groupthink_flag": {
+    "raised": false,
+    "shared_anchor": null,
+    "recommended_re_prompt_target": null
+  },
+  "all_filtered": {
+    "raised": false,
+    "minimum_info_needed": null
+  }
+}
