@@ -956,23 +956,30 @@
           </div>
           <div class="fade-in">
             <p class="section-label" data-index="02">课程定位</p>
-            <h2>把 AI 工具纳入数理建模与应用实践训练，而不是替代基础训练。</h2>
+            <h2>让大一学生以物理学家身份指挥 AI，2 周内 ship 一个能跑能分享的物理交互工件。</h2>
+            <p class="lead" style="margin-bottom: 24px;">
+              课程围绕五条反射动作 + 五件学生自己长出的工件 + cognitive ownership 原则展开。学生不是抄代码的实习生，是项目主理人。
+            </p>
             <div class="principles">
               <div class="principle">
-                <b>不以工具为中心</b>
-                <span>不围绕某个软件或平台设计课程。工具会变化，物理问题定义、模型审查和结果验证的训练要求不会变化。</span>
+                <b>1. Spec-first（PRD 写法）</b>
+                <span>拿到模糊想法先写一页"我要做什么、输入输出是什么、怎么算成功"，把 AI 能精准实现的边界先定下来。</span>
               </div>
               <div class="principle">
-                <b>以物理问题为中心</b>
-                <span>每个练习都必须有模型假设、方程、边界条件、输入输出和验证标准。</span>
+                <b>2. Architecture-before-code</b>
+                <span>先画系统块图（数据从哪进、模型在哪算、结果从哪出），让 AI 按块实现，自己掌握全局。</span>
               </div>
               <div class="principle">
-                <b>以可信验证为底线</b>
-                <span>代码、推导或文献整理都不能直接作为结论。学生必须给出解析极限、基准比较、收敛性检查和误差说明。</span>
+                <b>3. Trust but Verify</b>
+                <span>看到 AI 给出的代码、推导、图、文献，能在 60 秒内指出至少一个值得怀疑的地方，并用量纲、极限、守恒律、解析对照、参数扫描任一项验证或推翻。</span>
               </div>
               <div class="principle">
-                <b>以可复现产出为终点</b>
-                <span>最终交付代码仓库、项目报告、交互日志、验证清单和 AI 工具使用说明，便于教师检查过程和结果。</span>
+                <b>4. Ship something real</b>
+                <span>交付件不是 PDF 报告，是别人能点开 URL 就能玩、或一键启动的物理交互工件（Streamlit / Gradio / notebook 任选）。</span>
+              </div>
+              <div class="principle">
+                <b>5. Skill-building（构建自己的 Skill）</b>
+                <span>把项目里反复做的动作抽象成一个 SKILL.md 文件，下一个新问题时复用。这是学完之后能跟你一辈子的可携带产出。</span>
               </div>
             </div>
           </div>
@@ -984,55 +991,55 @@
           <div class="section-head fade-in">
             <div>
               <p class="section-label" data-index="03">教学方案</p>
-              <h2>32 学时按 16 次课组织，最后形成一个小型应用原型。</h2>
+              <h2>40 学时按 10 个教学日组织，学生 ship 一个可分享的物理交互工件。</h2>
             </div>
             <p class="lead">
-              按同济大学 45 分钟一个学时计算，本课程每次课 2 学时，共 90 分钟。每次课按“概念讲解、现场示范、学生实验、验证复盘”组织，并留下可检查的代码、图像、日志或验证材料。
+              按同济大学 45 分钟一个学时计算，本课程每日 4 学时（180 分钟教学 + 20 分钟缓冲 + 10 分钟中场），共 10 个连续工作日。学生不是来学 Python 语法的，他们是以物理学家身份指挥 AI 建造一个工件，2 周后 ship 出去。完整大纲见仓库 SYLLABUS.md。
             </p>
           </div>
           <div class="phase-grid">
             <article class="phase fade-in">
-              <time>第 1 至 4 课</time>
-              <h3>阶段一：问题定义与使用规范</h3>
-              <p>明确课程边界，训练学生把模糊物理想法转化为有假设、有方程、有验证标准的任务。</p>
+              <time>Day 1 至 Day 2</time>
+              <h3>阶段一：入门规范 + 第一次 AI 协作</h3>
+              <p>把模糊问题变成可计算任务；第一次和 AI 一起做单摆，第一次抓到 AI 出错；学会读懂 AI 给的 Python 脚本，手算 Euler 校验。</p>
               <ul>
-                <li>课程方法与基本规范</li>
-                <li>物理任务描述模板</li>
-                <li>文献阅读与假引用识别</li>
-                <li>从想法到原型</li>
+                <li>Director-Agent 身份介绍</li>
+                <li>三类审计法（单位 / 符号 / 数量级）</li>
+                <li>读 AI 脚本 + 手算 Euler 校验</li>
+                <li>Day 2 课后交 PRD 草稿（自己长出来，不发模板）</li>
               </ul>
             </article>
             <article class="phase fade-in">
-              <time>第 5 至 9 课</time>
-              <h3>阶段二：数值计算与可信验证</h3>
-              <p>围绕代码、数据、图像、推导和模拟，建立每个项目必须具备的验证链条。</p>
+              <time>Day 3 至 Day 5</time>
+              <h3>阶段二：物理建模 + 6-D Prompt + 数据接入</h3>
+              <p>二阶 ODE 化简、二维独立维度、Anthropic 6-D prompt 框架对比演示；让 AI 把真实数据流进项目，画三联图。</p>
               <ul>
-                <li>量纲、极限、守恒律</li>
-                <li>拟合与误差条</li>
-                <li>SymPy 与 LaTeX 推导检查</li>
-                <li>ODE/PDE 与 Monte Carlo</li>
+                <li>守恒律作为第一道法庭</li>
+                <li>架构图先于代码 + AGENTS.md 交付</li>
+                <li>Anthropic 6-D prompt 速通</li>
+                <li>数据接入 + Excel 最小二乘 No-AI 基线</li>
               </ul>
             </article>
             <article class="phase fade-in">
-              <time>第 10 至 13 课</time>
-              <h3>阶段三：项目流程与项目表达</h3>
-              <p>围绕反问题、分工协作、版本管理和论文式表达，建立完整的项目工作流。</p>
+              <time>Day 6 至 Day 8</time>
+              <h3>阶段三：AI 输出审计 + Ship 工件 + 五项验证</h3>
+              <p>10 类 AI 错误模式集中训练；让 AI 帮你把项目包装成 Streamlit 工件；五项验证清单 Trust-but-Verify 总演练。</p>
               <ul>
-                <li>反问题与 UQ</li>
-                <li>计划、实现、审查、写作分工</li>
-                <li>Git、环境和交互日志</li>
-                <li>项目报告写作</li>
+                <li>10 大 AI 错误模式 + 中期答辩</li>
+                <li>Streamlit 工件 + 文献核验</li>
+                <li>五项验证清单（量纲/极限/守恒/参数扫描/文献对比）</li>
+                <li>Phase-handoff verification 跨阶段忠实度检查</li>
               </ul>
             </article>
             <article class="phase fade-in">
-              <time>第 14 至 16 课</time>
-              <h3>阶段四：伦理规范与项目展示</h3>
-              <p>通过项目冲刺、同行评阅和最终答辩，检查学生是否能够解释模型、代码、数据和验证结果。</p>
+              <time>Day 9 至 Day 10</time>
+              <h3>阶段四：构建自己的 Skill + Demo Day</h3>
+              <p>抽象项目里反复做的动作成可携带的 Skill；组间架构互查；Demo Day 现场打开工件让观众玩，演示自己造的 Skill。</p>
               <ul>
-                <li>AI 工具使用说明</li>
-                <li>学术诚信与数据边界</li>
-                <li>项目工作坊</li>
-                <li>8 分钟展示与答辩</li>
+                <li>SKILL.md 抽象训练（学生自己长出格式）</li>
+                <li>组间架构互查 + trade-off 质疑</li>
+                <li>Demo Day 11 分钟（7 展 + 3 问 + 1 切换）</li>
+                <li>课程反思 + 五件工件归档</li>
               </ul>
             </article>
           </div>
@@ -1043,43 +1050,43 @@
         <div class="wrap">
           <div class="section-head fade-in">
             <div>
-              <p class="section-label" data-index="04">师资分工</p>
-              <h2>建议采用双主线合开，兼顾物理建模与数据应用。</h2>
+              <p class="section-label" data-index="04">师资配置</p>
+              <h2>单师主讲 + 1 助教按班额触发，硬卡 ≤ 8 组单师 / 9 至 11 组配 1 助教。</h2>
             </div>
             <p class="lead">
-              一条主线偏物理建模与数值计算，一条主线偏数据驱动建模与可视化分析。共同目标不是堆叠知识点，而是让学生在不同应用场景中反复练习同一套建模、计算与验证规范。
+              班额硬约束来自单师真实工作量数学：每日轮巡 80 分钟、每晚批改 PRD / AGENTS / SKILL / 报告 / 日志累计 12 至 15 小时（10 天累计），超过 8 组单师无法保证质量。助教不分担原则审，主要承担日志 triage、DOI 反查、Streamlit 启动验证。
             </p>
           </div>
           <div class="track-grid">
             <article class="track fade-in">
-              <img src="assets/scattering-module.png" alt="物理建模与数值计算案例" />
+              <img src="assets/scattering-module.png" alt="主讲教师 director 角色" />
               <div class="track-body">
-                <h3>主线 A：物理建模与数值计算</h3>
+                <h3>主讲教师：Director + 原则审视者</h3>
                 <p>
-                  从物理问题到方程，再到数值求解。训练学生构建模型、选择算法、做参数拟合与反问题分析，并用解析极限和基准算例验证结果。可由理论与计算方向教师主讲。
+                  老师不再按"物理 vs 数据"分两主线，而是单人贯通 10 天。核心动作是即兴评价 8 至 13 份格式完全不同的学生 PRD / AGENTS.md / SKILL.md，按原则审视而非格式对照。每天演示真实 AI 协作，包括 AI 出错的瞬间和如何当场抓出。
                 </p>
                 <div class="tag-row">
-                  <span class="tag">ODE / PDE</span>
-                  <span class="tag">Monte Carlo</span>
-                  <span class="tag">参数拟合</span>
-                  <span class="tag">反问题</span>
-                  <span class="tag">振动 / 传热 / 散射案例</span>
+                  <span class="tag">PRD 原则审视</span>
+                  <span class="tag">AGENTS.md case study</span>
+                  <span class="tag">6-D prompt 对比演示</span>
+                  <span class="tag">五项验证清单</span>
+                  <span class="tag">10 大错误模式</span>
                 </div>
               </div>
             </article>
             <article class="track fade-in">
-              <img src="assets/optics-module.png" alt="数据驱动建模与应用案例" />
+              <img src="assets/optics-module.png" alt="助教 first-pass triage 角色" />
               <div class="track-body">
-                <h3>主线 B：数据驱动建模与应用</h3>
+                <h3>助教（9 至 11 组触发）：First-pass Triage</h3>
                 <p>
-                  从数据到结论。训练学生处理信号与图像、做统计推断与不确定性量化、用合理的可视化与报告呈现结果。案例来自学院实验室数据和公开数据集。可由实验与数据分析方向教师主讲。
+                  助教不做原则终审，承担可委派的形式化工作：每日 AI 审计日志勾选 triage、DOI 反查（3 引用 × 11 组 ≈ 33 篇 / Day 7 当晚）、Streamlit 工件启动抽审（Day 7 晚 3 组）、checklist.md 五项完整度检查。学生提交工件末尾的 30 秒 self-check checkbox 是助教 first-pass 的入口。
                 </p>
                 <div class="tag-row">
-                  <span class="tag">信号与图像</span>
-                  <span class="tag">统计推断</span>
-                  <span class="tag">UQ</span>
-                  <span class="tag">可视化与报告</span>
-                  <span class="tag">实验 / 公开数据集</span>
+                  <span class="tag">日志 triage</span>
+                  <span class="tag">DOI 反查</span>
+                  <span class="tag">Streamlit 启动验证</span>
+                  <span class="tag">checkbox first-pass</span>
+                  <span class="tag">轮巡协助</span>
                 </div>
               </div>
             </article>
@@ -1092,38 +1099,43 @@
           <div class="section-head fade-in">
             <div>
               <p class="section-label" data-index="05">教学组织</p>
-              <h2>课程组织的关键，是把过程材料和验证要求固定下来。</h2>
+              <h2>小组制、过程性评价、五件学生自己长出的工件，老师不发模板。</h2>
             </div>
             <p class="lead">
-              建议采用小组制、过程性评价和统一项目模板。教师不需要每节课讲满，而是用现场示范和实验室式指导建立学生的操作标准。
+              课程的反模板立场（详见 SYLLABUS §五.2）要求老师只讲原则、给案例对比、给评分细则，学生自己决定五件工件长什么样。老师在投影上展示 good / bad / ugly 范例做 case study，但不发模板让学生填。
             </p>
           </div>
           <div class="card-grid">
             <article class="card fade-in">
-              <h3>课堂结构</h3>
+              <h3>每日课堂结构（4 学时 = 180 分钟教学 + 20 分钟缓冲 + 10 分钟中场）</h3>
               <ul>
-                <li>15 分钟：概念与物理背景</li>
-                <li>20 分钟：教师现场示范</li>
-                <li>45 分钟：学生课堂实验</li>
-                <li>10 分钟：验证复盘</li>
+                <li>30 分钟：概念与物理背景</li>
+                <li>40 分钟：教师现场演示（含 AI 协作录像 master tape）</li>
+                <li>10 分钟：中场休息</li>
+                <li>80 分钟：学生动手实验 + 教师轮巡</li>
+                <li>20 分钟：验证复盘</li>
+                <li>20 分钟：缓冲 / 切换 / 个别答疑</li>
               </ul>
             </article>
             <article class="card fade-in">
-              <h3>项目组织</h3>
+              <h3>项目里程碑（10 教学日）</h3>
               <ul>
-                <li>2 到 3 人一组</li>
-                <li>第 3 课确定方向</li>
-                <li>第 8 课提交中期结果</li>
-                <li>第 16 课展示和答辩</li>
+                <li>2 至 3 人一组（自由组队）</li>
+                <li>Day 2 课后：选题 + PRD 草稿</li>
+                <li>Day 3 课后：AGENTS.md + 架构图</li>
+                <li>Day 6 课内：中期答辩（4 分钟 / 组）</li>
+                <li>Day 7 课后：Streamlit 工件可跑</li>
+                <li>Day 10 课内：Demo Day（11 分钟 / 组）</li>
               </ul>
             </article>
             <article class="card fade-in">
-              <h3>统一交付模板</h3>
+              <h3>五件工件（学生自己生成，老师不发模板）</h3>
               <ul>
-                <li>Git 仓库和环境文件</li>
-                <li>交互日志</li>
-                <li>验证清单</li>
-                <li>项目报告和使用说明</li>
+                <li>PRD.md（一页项目规格）</li>
+                <li>AGENTS.md（项目级 AI 约束文件）</li>
+                <li>源码 + checklist.md（五项验证清单填写）</li>
+                <li>可访问工件（本地一键启动 zip 默认 / Streamlit URL 可选）</li>
+                <li>SKILL.md（你自己造的可复用 AI 工作流）</li>
               </ul>
             </article>
           </div>
@@ -1135,28 +1147,28 @@
           <div class="section-head fade-in">
             <div>
               <p class="section-label" data-index="06">质量保障</p>
-              <h2>AI 工具进入课堂后，质量控制必须写进课程规则。</h2>
+              <h2>9 项风险全覆盖，重点防 4 类——单师过劳 / AI 服务断 / 验证不到位 / 学术伦理失守。</h2>
             </div>
             <p class="lead">
-              课程制度必须明确：工具输出不能直接成为结论，所有关键结果都要经过物理审查、基准比较和可复现检查。
+              课程制度明确：AI 输出不能直接成为结论；班额硬卡到与单师工作量数学闭合；境外 AI 服务断时国内栈（DeepSeek / Qwen / Trae）全程平替评分一致；学生主动报告 AI 灰色地带不扣分，失报即违规。完整 9 项风险与应对见 SYLLABUS §十一。
             </p>
           </div>
           <div class="risk-grid">
             <article class="risk fade-in">
-              <h3>风险一：学生过度依赖工具完成任务</h3>
-              <p>应对办法：评分重心放在验证、日志、错误修正和答辩，而不是代码量。学生必须解释每个关键公式、参数和图像。</p>
+              <h3>风险一：单师精力不够 / 班额超载</h3>
+              <p>应对办法：班额硬卡 ≤ 8 组（≤ 24 人）单师 / 9 至 11 组配 1 助教。学生提交工件末尾附 30 秒 self-check checkbox 让助教做 first-pass triage，不破坏反模板立场。</p>
             </article>
             <article class="risk fade-in">
-              <h3>风险二：假文献和错误引用</h3>
-              <p>应对办法：所有参考文献必须提交 DOI、arXiv 或出版社页面。无法核验来源的引用不计入有效文献。</p>
+              <h3>风险二：AI 服务在中国大陆中断 / 学术伦理失守</h3>
+              <p>应对办法：境内栈 DeepSeek / Qwen / Trae / Kimi 全程平替；每天有预录的 master tape 演示备份；学生主动在 AI 使用说明段报告灰色地带不扣分，失报即按学术不端处理。</p>
             </article>
             <article class="risk fade-in">
-              <h3>风险三：错误代码看起来能运行</h3>
-              <p>应对办法：每个项目至少包含一个解析极限、一个基准算例、一次收敛测试和一张合理性检查图。</p>
+              <h3>风险三：错误代码看起来能运行 / 假文献进入报告</h3>
+              <p>应对办法：每个项目跑五项验证清单（量纲 / 解析极限 / 守恒律 / 参数扫描 / 文献对比）；所有引用必须提交 DOI 或 arXiv，老师当晚反查；Phase-handoff verification 在 Day 4 / 7 / 10 强制 30 秒跨阶段对账。</p>
             </article>
             <article class="risk fade-in">
-              <h3>风险四：学术伦理边界不清</h3>
-              <p>应对办法：最终报告必须包含AI 工具使用说明，列明工具、用途、人工核查和最终责任。</p>
+              <h3>风险四：Streamlit 部署 / AV 故障 / 教师病假</h3>
+              <p>应对办法：本地一键启动 zip 为默认交付，Streamlit Community Cloud 为可选 stretch goal；演示 master tape 学院云盘 + 本地 + USB 三份备份；开课前指定备份助教参与过 Day 0/1/6 三次课，熟悉学生与节奏。</p>
             </article>
           </div>
         </div>
@@ -1166,38 +1178,38 @@
         <div class="wrap assessment-grid">
           <div class="fade-in">
             <p class="section-label" data-index="07">考核方式</p>
-            <h2>建议采用过程性档案评价，不设传统闭卷考试。</h2>
+            <h2>过程性档案评价，五件工件 + 答辩，不设闭卷考试。</h2>
             <div class="rubric" aria-label="评分方式">
               <div class="rubric-row">
-                <b>50%</b>
-                <span>期末项目：代码、报告和展示</span>
+                <b>40%</b>
+                <span>期末项目（五件工件 + 答辩综合评估）</span>
+              </div>
+              <div class="rubric-row">
+                <b>25%</b>
+                <span>每日实验与作业</span>
               </div>
               <div class="rubric-row">
                 <b>20%</b>
-                <span>验证质量：基准比较、误差分析、收敛性和物理解释</span>
-              </div>
-              <div class="rubric-row">
-                <b>15%</b>
-                <span>交互日志：任务描述迭代、错误记录和人工修正</span>
+                <span>AI 审计日志（4 档 anchor rubric: A 找物理意义 / B surface / C 完整 / F 缺）</span>
               </div>
               <div class="rubric-row">
                 <b>10%</b>
-                <span>作业与课堂实验</span>
+                <span>课堂参与</span>
               </div>
               <div class="rubric-row">
                 <b>5%</b>
-                <span>课堂讨论与同行评阅</span>
+                <span>同行评阅 + Day 6 反馈卡</span>
               </div>
             </div>
           </div>
           <aside class="output-box fade-in">
-            <h3>最终交付件</h3>
+            <h3>最终五件工件（学生自己生成，不用模板）</h3>
             <ul>
-              <li>一个可运行、可复现的建模与应用原型</li>
-              <li>Git 仓库，包含环境文件、数据、notebooks、tests、figures 和交互日志</li>
-              <li>4 到 6 页项目报告，含模型、方法、验证、结果和局限性</li>
-              <li>验证清单，至少覆盖量纲、解析极限、基准比较、收敛性和误差</li>
-              <li>AI 工具使用说明，说明使用边界和人工责任</li>
+              <li>PRD.md（一页项目规格：做什么 / 输入 / 输出 / 验证 / 技术栈）</li>
+              <li>AGENTS.md（项目级 AI 约束文件，下一个 fork 你项目的 AI 自动遵守）</li>
+              <li>源码 + checklist.md（五项验证清单逐项填写）</li>
+              <li>可访问工件（本地一键启动 zip 默认 / Streamlit Cloud URL 可选 stretch）</li>
+              <li>SKILL.md（你自己造的物理 Skill，下学期能在任意 AI 工具上激活复用）</li>
             </ul>
           </aside>
         </div>
@@ -1207,19 +1219,19 @@
         <div class="wrap decision-box fade-in">
           <div>
             <p class="section-label" data-index="08">实施建议</p>
-            <h2>建议先以 32 学时试点课程启动。</h2>
+            <h2>建议第一轮以 40 学时 2 周密集 / 单师 / 小班试点启动。</h2>
             <p>
-              课程定位为本科生暑期实践课。32 学时按 16 次课安排，每次 2 学时，共 90 分钟。第一轮以小班试点为宜，人数控制在 25 到 40 人，方便教师检查交互日志、代码仓库和验证报告。成熟后可扩展为学院 AI 辅助建模与实践训练平台。
+              课程定位为大一升大二暑期实践课。40 学时按 10 个连续工作日安排，每日 4 学时（180 分钟教学 + 20 分钟缓冲 + 10 分钟中场）。第一轮以 ≤ 8 组（≤ 24 人）小班单师试点为宜；9 至 11 组班额必须配 1 名研究生助教（助教申请通过为开课前置条件）。第一轮备课预算 115 至 160 小时 + 20 至 30 小时背景阅读前置；第二轮起核心资产复用降至 30 小时以内。
             </p>
             <p>
-              对外可参考 Rice University “Vibe Coding for Research” 等课程的计算实践取向；对内突出同济物理学院自己的振动与波动、散射、信号与图像、实验与公开数据集案例。
+              对外参考 Anthropic 6-D prompt 框架、Kong et al. 2026 学术研究生命周期综述、Rice "Vibe Coding for Research"、Datawhale easy-vibe、awesome-vibe-coding 等课程谱系；对内强调反模板立场（学生自己长出五件工件）和境内栈平替（DeepSeek / Qwen / Trae 评分一致）。完整大纲见仓库 SYLLABUS.md。
             </p>
           </div>
           <ul class="decision-list">
-            <li><b>开课名称：</b>Vibe Physics：AI 辅助数理建模与应用实践</li>
-            <li><b>开课方式：</b>2 位教师合开，物理建模/数值计算 + 数据驱动/可视化分析双主线</li>
-            <li><b>资源需求：</b>机房或自带电脑，统一 Python 环境，Git 平台，合规AI 工具账号</li>
-            <li><b>可衡量成效：</b>每组形成可复现项目、项目报告、交互日志和验证报告</li>
+            <li><b>开课名称：</b>AI 辅助数理建模与应用实践</li>
+            <li><b>开课方式：</b>单师主讲（≤ 8 组）/ 单师 + 1 助教（9 至 11 组），不再分双主线，单人贯通 10 天</li>
+            <li><b>资源需求：</b>机房或自带电脑，统一 Python 环境，Git 平台，AI 工具（境内境外栈任选）</li>
+            <li><b>可衡量成效：</b>每组交付五件工件（PRD / AGENTS / 源码+清单 / 可访问工件 / SKILL.md）+ Demo Day 现场展示</li>
           </ul>
         </div>
       </section>
@@ -1227,7 +1239,7 @@
 
     <footer class="footer">
       <div class="footer-inner">
-        <span>Vibe Physics 课程建设方案</span>
+        <span>AI 辅助数理建模与应用实践 课程建设方案</span>
         <span>同济大学物理科学与工程学院</span>
       </div>
     </footer>
