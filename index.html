@@ -741,6 +741,80 @@
           transform: none;
         }
       }
+
+      /* 项目库三轴筛选 */
+      .project-filters {
+        display: grid;
+        gap: 10px;
+        margin-bottom: 26px;
+      }
+      .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+      }
+      .filter-axis {
+        font-family: var(--font-sans);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--ink-light);
+        width: 52px;
+        flex: none;
+      }
+      .chip {
+        font-family: var(--font-sans);
+        font-size: 12.5px;
+        font-weight: 500;
+        color: var(--ink-muted);
+        padding: 4px 13px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--paper);
+        cursor: pointer;
+        transition: all 0.18s ease;
+      }
+      .chip:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .chip.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .project {
+        transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1),
+          box-shadow 0.2s ease, opacity 0.25s ease, filter 0.25s ease;
+      }
+      .project.dim {
+        opacity: 0.26;
+        filter: grayscale(0.7);
+        pointer-events: none;
+      }
+      .ptags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: 12px;
+      }
+      .ptags span {
+        font-family: var(--font-sans);
+        font-size: 10.5px;
+        font-weight: 500;
+        color: var(--ink-light);
+        padding: 1px 8px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--paper-deep);
+      }
+      .ptags span.lv {
+        color: var(--accent);
+        border-color: rgba(0, 47, 167, 0.25);
+        background: rgba(0, 47, 167, 0.06);
+      }
     </style>
   </head>
   <body>
@@ -960,56 +1034,92 @@
             </p>
           </div>
 
+          <div class="project-filters" id="project-filters">
+            <div class="filter-row">
+              <span class="filter-axis">主题</span>
+              <button class="chip active" data-dim="all" data-val="all">全部</button>
+              <button class="chip" data-dim="topic" data-val="力学">力学</button>
+              <button class="chip" data-dim="topic" data-val="振动">振动</button>
+              <button class="chip" data-dim="topic" data-val="电路">电路</button>
+              <button class="chip" data-dim="topic" data-val="热学">热学</button>
+              <button class="chip" data-dim="topic" data-val="光学">光学</button>
+              <button class="chip" data-dim="topic" data-val="统计">统计</button>
+            </div>
+            <div class="filter-row">
+              <span class="filter-axis">方法</span>
+              <button class="chip" data-dim="method" data-val="ODE">微分方程</button>
+              <button class="chip" data-dim="method" data-val="拟合">拟合</button>
+              <button class="chip" data-dim="method" data-val="蒙特卡洛">蒙特卡洛</button>
+              <button class="chip" data-dim="method" data-val="线代">线性代数</button>
+              <button class="chip" data-dim="method" data-val="图像">图像与视频</button>
+            </div>
+            <div class="filter-row">
+              <span class="filter-axis">难度</span>
+              <button class="chip" data-dim="level" data-val="入门">入门</button>
+              <button class="chip" data-dim="level" data-val="进阶">进阶</button>
+            </div>
+          </div>
+
           <div class="project-grid">
-            <article class="project fade-in">
+            <article class="project fade-in" data-topic="力学 振动" data-method="ODE 图像" data-level="入门">
               <b>P1</b>
               <h3>大角度单摆</h3>
               <p>比较精确周期和小角度近似，找出近似失效的范围。</p>
+              <div class="ptags"><span>力学</span><span>振动</span><span>微分方程</span><span class="lv">入门</span></div>
             </article>
-            <article class="project fade-in">
+            <article class="project fade-in" data-topic="力学" data-method="ODE" data-level="入门">
               <b>P2</b>
               <h3>含阻力抛体</h3>
               <p>比较无阻力、线性阻力和二次阻力下的运动轨迹。</p>
+              <div class="ptags"><span>力学</span><span>微分方程</span><span class="lv">入门</span></div>
             </article>
-            <article class="project fade-in">
+            <article class="project fade-in" data-topic="电路" data-method="ODE" data-level="进阶">
               <b>P3</b>
               <h3>RLC 电路</h3>
               <p>观察欠阻尼、临界阻尼和过阻尼下的充放电过程。</p>
+              <div class="ptags"><span>电路</span><span>微分方程</span><span class="lv">进阶</span></div>
             </article>
-            <article class="project fade-in">
+            <article class="project fade-in" data-topic="力学" data-method="ODE" data-level="进阶">
               <b>P4</b>
               <h3>行星轨道</h3>
               <p>模拟中心力轨道，并用能量和角动量检查计算结果。</p>
+              <div class="ptags"><span>力学</span><span>微分方程</span><span class="lv">进阶</span></div>
             </article>
-            <article class="project fade-in">
+            <article class="project fade-in" data-topic="热学" data-method="ODE 拟合" data-level="入门">
               <b>P5</b>
               <h3>杯水冷却</h3>
               <p>记录温度数据，用冷却模型拟合参数并检查残差。</p>
+              <div class="ptags"><span>热学</span><span>拟合</span><span class="lv">入门</span></div>
             </article>
-            <article class="project fade-in">
+            <article class="project fade-in" data-topic="振动" data-method="线代" data-level="进阶">
               <b>P6</b>
               <h3>弹簧振子链</h3>
               <p>求简正频率，展示不同振动模式的形状。</p>
+              <div class="ptags"><span>振动</span><span>线性代数</span><span class="lv">进阶</span></div>
             </article>
-            <article class="project fade-in">
+            <article class="project fade-in" data-topic="统计" data-method="蒙特卡洛" data-level="入门">
               <b>P7</b>
-              <h3>蒙特卡罗估算</h3>
+              <h3>蒙特卡洛估算</h3>
               <p>用随机采样估算圆周率或定积分，检查误差收敛。</p>
+              <div class="ptags"><span>统计</span><span>蒙特卡洛</span><span class="lv">入门</span></div>
             </article>
-            <article class="project fade-in">
+            <article class="project fade-in" data-topic="力学" data-method="图像 拟合" data-level="入门">
               <b>P8</b>
               <h3>视频测重力加速度</h3>
               <p>从手机视频提取位置数据，拟合抛物线得到重力加速度。</p>
+              <div class="ptags"><span>力学</span><span>图像与视频</span><span>拟合</span><span class="lv">入门</span></div>
             </article>
-            <article class="project fade-in">
+            <article class="project fade-in" data-topic="统计" data-method="蒙特卡洛" data-level="入门">
               <b>P9</b>
               <h3>随机行走</h3>
               <p>模拟大量随机行走，验证均方位移随步数的变化。</p>
+              <div class="ptags"><span>统计</span><span>蒙特卡洛</span><span class="lv">入门</span></div>
             </article>
-            <article class="project fade-in">
+            <article class="project fade-in" data-topic="光学" data-method="图像 拟合" data-level="进阶">
               <b>P10</b>
               <h3>光学衍射</h3>
               <p>从衍射照片提取强度曲线，反推出单缝宽度。</p>
+              <div class="ptags"><span>光学</span><span>图像与视频</span><span>拟合</span><span class="lv">进阶</span></div>
             </article>
           </div>
         </div>
@@ -1175,6 +1285,29 @@
       } else {
         document.querySelectorAll(".fade-in").forEach((element) => observer.observe(element));
       }
+
+      // 项目库三轴筛选：点标签高亮匹配项目，淡化其余
+      (function () {
+        const filters = document.getElementById("project-filters");
+        if (!filters) return;
+        const chips = filters.querySelectorAll(".chip");
+        const projects = document.querySelectorAll(".project-grid .project");
+
+        function apply(dim, val) {
+          projects.forEach((card) => {
+            const match = dim === "all" || (card.dataset[dim] || "").split(" ").includes(val);
+            card.classList.toggle("dim", !match);
+          });
+        }
+
+        chips.forEach((chip) => {
+          chip.addEventListener("click", () => {
+            chips.forEach((c) => c.classList.remove("active"));
+            chip.classList.add("active");
+            apply(chip.dataset.dim, chip.dataset.val);
+          });
+        });
+      })();
     </script>
   </body>
 </html>
