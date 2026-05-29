@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="AI 辅助数理建模与应用实践，2027 年暑期课程，面向完成大一学习的学生，2 学分，32 学时。"
+    />
+    <title>AI 辅助数理建模与应用实践 // 2027 SUMMER</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        /* 未来科幻 / 深空 HUD 全息界面 */
+        --void: #04060f;
+        --void-2: #070b1a;
+        --panel: rgba(14, 22, 46, 0.55);
+        --panel-solid: #0a1124;
+        --line: rgba(0, 229, 255, 0.16);
+        --line-strong: rgba(0, 229, 255, 0.42);
+
+        --cyan: #00e5ff;
+        --magenta: #ff2bd6;
+        --violet: #7c4dff;
+        --lime: #b6ff3c;
+
+        --text: #dff3ff;
+        --text-muted: #8aa0c4;
+        --text-dim: #5b6e93;
+
+        --glow-cyan: 0 0 24px rgba(0, 229, 255, 0.45);
+        --glow-mag: 0 0 24px rgba(255, 43, 214, 0.4);
+
+        --font-display: "Orbitron", "Noto Sans SC", sans-serif;
+        --font-body: "Rajdhani", "Noto Sans SC", system-ui, sans-serif;
+        --font-mono: "JetBrains Mono", "SFMono-Regular", monospace;
+        --font-cn: "Noto Sans SC", system-ui, -apple-system, sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        background: var(--void);
+        font-family: var(--font-cn);
+        font-size: 16px;
+        line-height: 1.8;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+
+      a { color: inherit; text-decoration: none; }
+      img { display: block; width: 100%; }
+
+      /* ===== 背景：星空 + 网格 + 极光 ===== */
+      .bg {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background:
+          radial-gradient(1200px 800px at 78% -10%, rgba(124, 77, 255, 0.22), transparent 60%),
+          radial-gradient(1000px 700px at 8% 12%, rgba(0, 229, 255, 0.16), transparent 55%),
+          radial-gradient(900px 900px at 60% 110%, rgba(255, 43, 214, 0.14), transparent 60%),
+          var(--void);
+      }
+      .bg-grid {
+        position: fixed;
+        inset: -50%;
+        z-index: -1;
+        background-image:
+          linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
+        background-size: 48px 48px;
+        transform: perspective(600px) rotateX(0deg);
+        mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 35%, transparent 80%);
+        -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 35%, transparent 80%);
+      }
+      /* 扫描线 */
+      .scanlines {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        pointer-events: none;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 0px,
+          rgba(0, 0, 0, 0) 2px,
+          rgba(0, 0, 0, 0.05) 3px,
+          rgba(0, 0, 0, 0) 4px
+        );
+        mix-blend-mode: overlay;
+        opacity: 0.5;
+      }
+
+      /* ===== 顶栏 HUD ===== */
+      .topbar {
+        position: fixed;
+        z-index: 100;
+        top: 0; left: 0; right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px clamp(20px, 5vw, 64px);
+        background: linear-gradient(180deg, rgba(4, 6, 15, 0.92), rgba(4, 6, 15, 0.4));
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(14px);
+      }
+      .brand {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+      }
+      .brand strong {
+        font-family: var(--font-display);
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: var(--text);
+        text-shadow: var(--glow-cyan);
+      }
+      .brand span {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--cyan);
+        letter-spacing: 1px;
+      }
+      .nav {
+        display: flex;
+        gap: 26px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        color: var(--text-muted);
+      }
+      .nav a {
+        position: relative;
+        padding: 4px 2px;
+        transition: color 0.2s, text-shadow 0.2s;
+      }
+      .nav a::before { content: "/"; color: var(--text-dim); margin-right: 6px; }
+      .nav a:hover { color: var(--cyan); text-shadow: var(--glow-cyan); }
+
+      /* ===== 通用区块 ===== */
+      main { position: relative; z-index: 1; }
+      section { padding: clamp(72px, 11vh, 130px) clamp(20px, 5vw, 64px); }
+      .wrap { width: min(1180px, 100%); margin: 0 auto; }
+
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 2px;
+        color: var(--cyan);
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+      .kicker::before {
+        content: "";
+        width: 28px; height: 1px;
+        background: var(--cyan);
+        box-shadow: var(--glow-cyan);
+      }
+
+      h2 {
+        margin: 0;
+        font-family: var(--font-cn);
+        font-weight: 700;
+        font-size: clamp(26px, 3.6vw, 46px);
+        line-height: 1.22;
+        letter-spacing: -0.5px;
+        color: var(--text);
+      }
+      .lead {
+        margin-top: 18px;
+        max-width: 680px;
+        color: var(--text-muted);
+        font-size: 16.5px;
+        line-height: 1.8;
+      }
+      .section-head { margin-bottom: 52px; max-width: 760px; }
+
+      .glow-text {
+        background: linear-gradient(100deg, var(--cyan), var(--violet) 50%, var(--magenta));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      /* ===== HERO ===== */
+      .hero {
+        position: relative;
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        padding-top: 90px;
+      }
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: clamp(32px, 5vw, 72px);
+        align-items: center;
+        width: min(1180px, 100%);
+        margin: 0 auto;
+      }
+      .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 16px;
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 2px;
+        color: var(--cyan);
+        background: rgba(0, 229, 255, 0.06);
+        box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.08);
+        margin-bottom: 26px;
+      }
+      .hero-tag .dot {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 10px var(--lime);
+        animation: pulse 1.6s infinite;
+      }
+      @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+      .hero h1 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: clamp(40px, 6.2vw, 88px);
+        line-height: 0.98;
+        letter-spacing: -1px;
+        color: var(--text);
+        text-shadow: 0 0 40px rgba(0, 229, 255, 0.25);
+      }
+      .hero h1 .cn {
+        display: block;
+        font-family: var(--font-cn);
+        font-weight: 900;
+        font-size: clamp(34px, 5vw, 66px);
+        line-height: 1.05;
+        margin-top: 12px;
+        letter-spacing: 2px;
+      }
+      .hero p.subtitle {
+        margin: 30px 0 38px;
+        max-width: 560px;
+        color: var(--text-muted);
+        font-size: 18px;
+        line-height: 1.78;
+      }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 13px 28px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-radius: 4px;
+        border: 1px solid var(--line-strong);
+        transition: all 0.22s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .btn.primary {
+        color: var(--void);
+        background: linear-gradient(100deg, var(--cyan), var(--violet));
+        border-color: transparent;
+        box-shadow: 0 0 28px rgba(0, 229, 255, 0.4);
+        font-weight: 700;
+      }
+      .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0, 229, 255, 0.6); }
+      .btn.ghost { color: var(--cyan); background: rgba(0, 229, 255, 0.04); }
+      .btn.ghost:hover { background: rgba(0, 229, 255, 0.12); border-color: var(--cyan); }
+
+      /* HERO 右侧：全息工作流面板 */
+      .hud-panel {
+        position: relative;
+        padding: 26px 24px;
+        border: 1px solid var(--line-strong);
+        border-radius: 12px;
+        background: var(--panel);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 0 50px rgba(0, 229, 255, 0.08), inset 0 0 40px rgba(124, 77, 255, 0.06);
+      }
+      .hud-panel::before {
+        content: "";
+        position: absolute; inset: 0;
+        border-radius: 12px;
+        padding: 1px;
+        background: linear-gradient(140deg, var(--cyan), transparent 40%, transparent 60%, var(--magenta));
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0.6;
+        pointer-events: none;
+      }
+      .hud-head {
+        display: flex; justify-content: space-between; align-items: center;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: var(--text-dim);
+        margin-bottom: 22px;
+      }
+      .hud-head b { color: var(--cyan); font-weight: 500; }
+      .corner { width: 12px; height: 12px; border-top: 1px solid var(--cyan); border-right: 1px solid var(--cyan); }
+
+      .flow-step {
+        display: grid;
+        grid-template-columns: 38px 1fr;
+        gap: 14px;
+        align-items: center;
+        padding: 14px 0;
+        border-bottom: 1px dashed var(--line);
+      }
+      .flow-step:last-child { border-bottom: none; }
+      .flow-num {
+        width: 38px; height: 38px;
+        display: grid; place-items: center;
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--cyan);
+        background: rgba(0, 229, 255, 0.06);
+      }
+      .flow-step.s2 .flow-num { color: var(--violet); border-color: rgba(124,77,255,0.5); background: rgba(124,77,255,0.08); }
+      .flow-step.s3 .flow-num { color: var(--magenta); border-color: rgba(255,43,214,0.45); background: rgba(255,43,214,0.08); }
+      .flow-step.s4 .flow-num { color: var(--lime); border-color: rgba(182,255,60,0.45); background: rgba(182,255,60,0.08); }
+      .flow-en { font-family: var(--font-display); font-size: 13px; font-weight: 600; letter-spacing: 0.5px; }
+      .flow-cn { font-size: 13px; color: var(--text-dim); }
+
+      /* ===== 数据条 / 统计 ===== */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 14px;
+        margin: 56px 0;
+      }
+      .stat {
+        position: relative;
+        padding: 24px 20px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
+        backdrop-filter: blur(8px);
+        overflow: hidden;
+        transition: border-color 0.25s, transform 0.25s;
+      }
+      .stat::after {
+        content: "";
+        position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+        background: var(--cyan);
+        box-shadow: var(--glow-cyan);
+      }
+      .stat:hover { border-color: var(--line-strong); transform: translateY(-4px); }
+      .stat b {
+        display: block;
+        font-family: var(--font-display);
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--cyan);
+        line-height: 1;
+        text-shadow: var(--glow-cyan);
+      }
+      .stat span { display:block; margin-top: 8px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 1px; color: var(--text-muted); }
+
+      .manifesto {
+        padding: 34px 38px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: linear-gradient(120deg, rgba(124,77,255,0.08), rgba(0,229,255,0.04));
+        position: relative;
+      }
+      .manifesto::before {
+        content: "// ALERT";
+        position: absolute; top: -10px; left: 24px;
+        font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px;
+        color: var(--magenta);
+        background: var(--void);
+        padding: 0 8px;
+      }
+      .manifesto p { margin: 0; max-width: 720px; font-size: 17px; line-height: 1.78; color: var(--text-muted); }
+      .manifesto strong { color: var(--cyan); }
+
+      /* ===== 能力卡片 ===== */
+      .cap-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+      }
+      .cap {
+        position: relative;
+        padding: 28px 24px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--panel);
+        backdrop-filter: blur(8px);
+        transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+        overflow: hidden;
+      }
+      .cap:hover {
+        transform: translateY(-6px);
+        border-color: var(--line-strong);
+        box-shadow: 0 14px 40px rgba(0, 229, 255, 0.12);
+      }
+      .cap-id {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-dim);
+        letter-spacing: 1px;
+      }
+      .cap .ico { margin: 14px 0 16px; filter: drop-shadow(0 0 8px currentColor); }
+      .cap h3 {
+        margin: 0 0 10px;
+        font-family: var(--font-cn);
+        font-size: 19px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .cap p { margin: 0; font-size: 14.5px; line-height: 1.7; color: var(--text-muted); }
+
+      /* ===== 课程单元 ===== */
+      .unit {
+        display: grid;
+        grid-template-columns: 130px 1fr 0.85fr;
+        gap: 28px;
+        padding: 28px;
+        margin-bottom: 16px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--panel);
+        backdrop-filter: blur(8px);
+        position: relative;
+        transition: border-color 0.25s, transform 0.25s;
+      }
+      .unit:hover { border-color: var(--line-strong); transform: translateX(6px); }
+      .unit-tag {
+        align-self: start;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: var(--cyan);
+        padding: 6px 12px;
+        border: 1px solid var(--line-strong);
+        border-radius: 6px;
+        background: rgba(0,229,255,0.05);
+        white-space: nowrap;
+      }
+      .unit h3 { margin: 0 0 8px; font-family: var(--font-cn); font-size: 20px; font-weight: 700; color: var(--text); }
+      .unit > div > p { margin: 0; color: var(--text-muted); font-size: 14.5px; line-height: 1.7; }
+      .unit ul {
+        margin: 0; padding: 0; list-style: none;
+        display: grid; gap: 8px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+      .unit ul li { position: relative; padding-left: 20px; }
+      .unit ul li::before { content: "▹"; position: absolute; left: 0; color: var(--cyan); }
+
+      /* ===== 项目网格 ===== */
+      .proj-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 14px;
+      }
+      .proj {
+        position: relative;
+        padding: 22px 18px;
+        min-height: 168px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
+        backdrop-filter: blur(8px);
+        transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+        overflow: hidden;
+      }
+      .proj:hover {
+        transform: translateY(-6px) scale(1.02);
+        border-color: var(--line-strong);
+        box-shadow: 0 14px 36px rgba(124,77,255,0.18);
+      }
+      .proj .code {
+        display: inline-block;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--void);
+        background: var(--cyan);
+        padding: 2px 9px;
+        border-radius: 4px;
+        margin-bottom: 14px;
+        box-shadow: var(--glow-cyan);
+      }
+      .proj:nth-child(5n+2) .code { background: var(--magenta); box-shadow: var(--glow-mag); }
+      .proj:nth-child(5n+3) .code { background: var(--violet); box-shadow: 0 0 18px rgba(124,77,255,0.5); }
+      .proj:nth-child(5n+4) .code { background: var(--lime); box-shadow: 0 0 18px rgba(182,255,60,0.5); }
+      .proj h3 { margin: 0 0 6px; font-family: var(--font-cn); font-size: 16px; font-weight: 700; color: var(--text); }
+      .proj p { margin: 0; font-size: 13px; line-height: 1.6; color: var(--text-muted); }
+
+      /* ===== 考核 ===== */
+      .assess-grid {
+        display: grid;
+        grid-template-columns: 1fr 0.7fr;
+        gap: clamp(32px, 5vw, 68px);
+        align-items: start;
+      }
+      .score-list { display: grid; gap: 12px; margin-top: 28px; }
+      .score {
+        position: relative;
+        padding: 16px 20px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
+        overflow: hidden;
+      }
+      .score-head { display: flex; align-items: baseline; gap: 16px; }
+      .score b {
+        font-family: var(--font-display);
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--cyan);
+        text-shadow: var(--glow-cyan);
+      }
+      .score span { font-family: var(--font-cn); font-size: 15px; color: var(--text-muted); }
+      .bar { margin-top: 10px; height: 4px; border-radius: 4px; background: rgba(0,229,255,0.1); overflow: hidden; }
+      .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--cyan), var(--violet)); box-shadow: var(--glow-cyan); }
+
+      .rules { display: grid; gap: 14px; }
+      .rule {
+        padding: 20px 22px;
+        border: 1px solid var(--line);
+        border-left: 2px solid var(--magenta);
+        border-radius: 10px;
+        background: var(--panel);
+      }
+      .rule h3 { margin: 0 0 6px; font-family: var(--font-cn); font-size: 16px; font-weight: 700; color: var(--magenta); }
+      .rule p { margin: 0; font-size: 14px; line-height: 1.7; color: var(--text-muted); }
+
+      /* ===== 开课信息 ===== */
+      .info-box {
+        display: grid;
+        grid-template-columns: 1fr 0.75fr;
+        gap: clamp(32px, 5vw, 60px);
+        padding: clamp(32px, 4vw, 48px);
+        border: 1px solid var(--line-strong);
+        border-radius: 16px;
+        background: var(--panel);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 0 60px rgba(0,229,255,0.08);
+      }
+      .info-box p { color: var(--text-muted); font-size: 15.5px; line-height: 1.8; }
+      .info-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+      .info-list li {
+        padding: 14px 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(0,229,255,0.03);
+        font-family: var(--font-mono);
+        font-size: 13.5px;
+        color: var(--text-muted);
+      }
+      .info-list b { color: var(--cyan); font-weight: 500; }
+
+      /* ===== 页脚 ===== */
+      .footer {
+        padding: 28px clamp(20px, 5vw, 64px);
+        border-top: 1px solid var(--line);
+        background: rgba(4, 6, 15, 0.6);
+      }
+      .footer-inner {
+        display: flex; justify-content: space-between; align-items: center; gap: 20px;
+        width: min(1180px, 100%); margin: 0 auto;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: var(--text-dim);
+      }
+      .footer-inner b { color: var(--cyan); font-weight: 500; }
+
+      /* ===== 进场动画 ===== */
+      .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+      .reveal.in { opacity: 1; transform: none; }
+
+      /* ===== 响应式 ===== */
+      @media (max-width: 980px) {
+        .nav { display: none; }
+        .hero-inner { grid-template-columns: 1fr; }
+        .stats { grid-template-columns: repeat(2, 1fr); }
+        .cap-grid { grid-template-columns: repeat(2, 1fr); }
+        .proj-grid { grid-template-columns: repeat(2, 1fr); }
+        .unit { grid-template-columns: 1fr; }
+        .assess-grid, .info-box { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 560px) {
+        .stats { grid-template-columns: 1fr; }
+        .cap-grid, .proj-grid { grid-template-columns: 1fr; }
+        .footer-inner { flex-direction: column; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .reveal { opacity: 1; transform: none; transition: none; }
+        .hero-tag .dot { animation: none; }
+        *, *::before, *::after { animation-duration: 0.001ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg"></div>
+    <div class="bg-grid"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#top">
+        <strong>VIBE&nbsp;PHYSICS</strong>
+        <span>// AI 辅助数理建模与应用实践</span>
+      </a>
+      <nav class="nav" aria-label="导航">
+        <a href="#overview">OVERVIEW</a>
+        <a href="#learn">SKILLS</a>
+        <a href="#units">SYLLABUS</a>
+        <a href="#projects">MISSIONS</a>
+        <a href="#assessment">EVAL</a>
+        <a href="#info">ACCESS</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <!-- ===== HERO ===== -->
+      <section class="hero">
+        <div class="hero-inner">
+          <div>
+            <div class="hero-tag"><span class="dot"></span> SYSTEM ONLINE · 2027 SUMMER PROGRAM</div>
+            <h1>
+              AI &times; PHYSICS
+              <span class="cn glow-text">数理建模与<br>应用实践</span>
+            </h1>
+            <p class="subtitle">
+              给刚上完大一的物理学生。32 学时、2 学分，从一个真实问题出发，把 AI 当作工具，造出一个你能完全负责、别人能直接打开玩的物理交互项目。
+            </p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#learn">▶ 进入课程</a>
+              <a class="btn ghost" href="#projects">查看任务库</a>
+            </div>
+          </div>
+
+          <aside class="hud-panel" aria-label="工作流">
+            <div class="hud-head">
+              <span>WORKFLOW · PROTOCOL v3.3</span>
+              <span class="corner"></span>
+            </div>
+            <div class="flow-step s1">
+              <div class="flow-num">01</div>
+              <div><div class="flow-en">DEFINE</div><div class="flow-cn">问题定义 + 物理判断</div></div>
+            </div>
+            <div class="flow-step s2">
+              <div class="flow-num">02</div>
+              <div><div class="flow-en">MODEL</div><div class="flow-cn">量纲、模型、架构</div></div>
+            </div>
+            <div class="flow-step s3">
+              <div class="flow-num">03</div>
+              <div><div class="flow-en">BUILD WITH AI</div><div class="flow-cn">指挥 AI 实现 + 迭代</div></div>
+            </div>
+            <div class="flow-step s4">
+              <div class="flow-num">04</div>
+              <div><div class="flow-en">VERIFY &amp; SHIP</div><div class="flow-cn">物理验证 + 可运行工件</div></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ===== 课程定位 ===== -->
+      <section id="overview">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="kicker">01 / 课程定位</span>
+            <h2>这不是一门教你用 AI 写代码的课。<br><span class="glow-text">这是一门教你用 AI 做出值得相信的物理工作的课。</span></h2>
+            <p class="lead">
+              通过 32 学时的学习，你会从一个真实物理问题出发，完整走完「定义 → 建模 → AI 实现 → 物理验证 → 交付可运行项目」的全过程。AI 是强大的工具，但最终的判断和责任永远在你。
+            </p>
+          </div>
+
+          <div class="stats reveal">
+            <div class="stat"><b>2027</b><span>暑期集中</span></div>
+            <div class="stat"><b>2</b><span>学分</span></div>
+            <div class="stat"><b>32</b><span>学时</span></div>
+            <div class="stat"><b>4</b><span>核心单元</span></div>
+            <div class="stat"><b>1</b><span>完整项目</span></div>
+          </div>
+
+          <div class="manifesto reveal">
+            <p>
+              让 AI 把每一步都替你做了，短期确实省事。但提出问题、判断结果、担责任，这些本事只会越用越生疏。这门课不拦着你用 AI，但有一条硬线：<strong>关键的判断，得你自己做。</strong>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 四个核心能力 ===== -->
+      <section id="learn">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="kicker">02 / 核心能力</span>
+            <h2>你真正要练就的四件事</h2>
+            <p class="lead">这些能力比任何具体工具都更重要，也更持久。</p>
+          </div>
+
+          <div class="cap-grid">
+            <article class="cap reveal">
+              <div class="cap-id">CAP_01</div>
+              <svg class="ico" width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="var(--cyan)" stroke-width="1.7"><circle cx="24" cy="24" r="15"/><path d="M24 13v11l7 4"/></svg>
+              <h3>说清问题</h3>
+              <p>把模糊的想法变成精确的 spec。输入是什么？输出是什么？什么结果算成功？这是所有后续工作的根基。</p>
+            </article>
+            <article class="cap reveal">
+              <div class="cap-id">CAP_02</div>
+              <svg class="ico" width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="var(--violet)" stroke-width="1.7"><path d="M8 36 L18 26 L27 32 L40 16"/><circle cx="40" cy="16" r="3.5"/></svg>
+              <h3>建立模型</h3>
+              <p>在写任何代码前，先用量纲、数量级、守恒关系做出物理判断。模型比实现更重要。</p>
+            </article>
+            <article class="cap reveal">
+              <div class="cap-id">CAP_03</div>
+              <svg class="ico" width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="var(--magenta)" stroke-width="1.7"><rect x="9" y="13" width="30" height="22" rx="2"/><path d="M15 20h9 M15 27h14 M32 33l4 3 4-3"/></svg>
+              <h3>指挥 AI</h3>
+              <p>你不是让 AI 写代码，而是用清晰的意图驱动它。你必须能读懂、能修改、能为每一行负责。</p>
+            </article>
+            <article class="cap reveal">
+              <div class="cap-id">CAP_04</div>
+              <svg class="ico" width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="var(--lime)" stroke-width="1.7"><circle cx="20" cy="20" r="11"/><path d="M28 28l8 8 M17 22h6 M17 26h4"/></svg>
+              <h3>验证与交付</h3>
+              <p>结果跑出来后，你要能用物理的方法证明它可信。最后交付的是一个别人能直接打开、能复现的真实工件。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 课程安排 ===== -->
+      <section id="units">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="kicker">03 / 课程安排</span>
+            <h2>32 学时分成四个单元，每一段都为了最后你能交出一个拿得出手的项目。</h2>
+            <p class="lead">
+              我们不会把东西拆成零散的知识点小练习。你每天做的所有事，最后都要服务于一个目标：你能当着别人把自己的模型、代码和结论讲清楚。
+            </p>
+          </div>
+
+          <article class="unit reveal">
+            <div class="unit-tag">UNIT_01</div>
+            <div>
+              <h3>问题定义与物理判断</h3>
+              <p>从量纲、数量级和边界条件入手，把一个模糊题目变成能动手的小项目。</p>
+            </div>
+            <ul>
+              <li>问题边界、变量和假设</li>
+              <li>量纲分析与费米估算</li>
+              <li>项目说明的基本写法</li>
+            </ul>
+          </article>
+
+          <article class="unit reveal">
+            <div class="unit-tag">UNIT_02</div>
+            <div>
+              <h3>数值计算与代码阅读</h3>
+              <p>用最少的 Python 知识，完成微分方程、拟合、随机采样这些事。</p>
+            </div>
+            <ul>
+              <li>读懂 AI 生成的短程序</li>
+              <li>欧拉法、二维运动与参数扫描</li>
+              <li>拟合、残差和蒙特卡罗入门</li>
+            </ul>
+          </article>
+
+          <article class="unit reveal">
+            <div class="unit-tag">UNIT_03</div>
+            <div>
+              <h3>结果验证与来源核验</h3>
+              <p>学会追问：这个结果到底可不可信？AI 给的公式和文献，是真的还是它编的？</p>
+            </div>
+            <ul>
+              <li>解析极限、守恒关系和单调性</li>
+              <li>参考值、文献和数据来源核验</li>
+              <li>AI 常见错误的发现办法</li>
+            </ul>
+          </article>
+
+          <article class="unit reveal">
+            <div class="unit-tag">UNIT_04</div>
+            <div>
+              <h3>项目展示与方法整理</h3>
+              <p>把代码、图像、说明和验证记录，整理成别人能打开、能复现、能看懂的东西。</p>
+            </div>
+            <ul>
+              <li>交互页面或一键启动项目</li>
+              <li>AI 使用说明与验证记录</li>
+              <li>结课展示与答辩</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== 项目例子 ===== -->
+      <section id="projects">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="kicker">04 / 任务库</span>
+            <h2>题目都卡在大学物理的范围里，但每个都要你做出完整的结果。</h2>
+            <p class="lead">
+              你可以从给的题目里挑，也可以在差不多难度下自己想一个。题目不用多花哨，关键是模型经得起推敲、代码别人看得懂、结果自己审过，最后能做成一个拿得出手的东西。
+            </p>
+          </div>
+
+          <div class="proj-grid">
+            <article class="proj reveal"><span class="code">P1</span><h3>大角度单摆</h3><p>比较精确周期和小角度近似，找出近似失效的范围。</p></article>
+            <article class="proj reveal"><span class="code">P2</span><h3>含阻力抛体</h3><p>比较无阻力、线性阻力和二次阻力下的运动轨迹。</p></article>
+            <article class="proj reveal"><span class="code">P3</span><h3>RLC 电路</h3><p>观察欠阻尼、临界阻尼和过阻尼下的充放电过程。</p></article>
+            <article class="proj reveal"><span class="code">P4</span><h3>行星轨道</h3><p>模拟中心力轨道，并用能量和角动量检查计算结果。</p></article>
+            <article class="proj reveal"><span class="code">P5</span><h3>杯水冷却</h3><p>记录温度数据，用冷却模型拟合参数并检查残差。</p></article>
+            <article class="proj reveal"><span class="code">P6</span><h3>弹簧振子链</h3><p>求简正频率，展示不同振动模式的形状。</p></article>
+            <article class="proj reveal"><span class="code">P7</span><h3>蒙特卡罗估算</h3><p>用随机采样估算圆周率或定积分，检查误差收敛。</p></article>
+            <article class="proj reveal"><span class="code">P8</span><h3>视频测重力加速度</h3><p>从手机视频提取位置数据，拟合抛物线得到重力加速度。</p></article>
+            <article class="proj reveal"><span class="code">P9</span><h3>随机行走</h3><p>模拟大量随机行走，验证均方位移随步数的变化。</p></article>
+            <article class="proj reveal"><span class="code">P10</span><h3>光学衍射</h3><p>从衍射照片提取强度曲线，反推出单缝宽度。</p></article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 考核方式 ===== -->
+      <section id="assessment">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="kicker">05 / 考核方式</span>
+            <h2>没有闭卷考试。成绩主要看你做了什么、怎么做的、最后交出来的东西靠不靠谱。</h2>
+          </div>
+
+          <div class="assess-grid">
+            <div class="reveal">
+              <div class="score-list">
+                <div class="score"><div class="score-head"><b>40%</b><span>结课项目与答辩</span></div><div class="bar"><i style="width:100%"></i></div></div>
+                <div class="score"><div class="score-head"><b>25%</b><span>随堂实践与阶段作业</span></div><div class="bar"><i style="width:62.5%"></i></div></div>
+                <div class="score"><div class="score-head"><b>20%</b><span>AI 使用记录与验证说明</span></div><div class="bar"><i style="width:50%"></i></div></div>
+                <div class="score"><div class="score-head"><b>10%</b><span>课堂参与</span></div><div class="bar"><i style="width:25%"></i></div></div>
+                <div class="score"><div class="score-head"><b>5%</b><span>同伴反馈</span></div><div class="bar"><i style="width:12.5%"></i></div></div>
+              </div>
+            </div>
+
+            <div class="rules reveal">
+              <article class="rule"><h3>结果要能复现</h3><p>代码、参数、数据和运行方式放在一起，别人（包括课程结束后的你）能重新跑出主要结果。</p></article>
+              <article class="rule"><h3>引用要能反查</h3><p>AI 给你的公式和文献，不能只抄一个看着像真的条目。你得能找到真正的出处。</p></article>
+              <article class="rule"><h3>AI 使用要说清</h3><p>你让 AI 做了什么、它哪里错了、你是怎么改和验证的，这些都要在项目里写明白。</p></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 开课信息 ===== -->
+      <section id="info">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="kicker">06 / 开课信息</span>
+            <h2>2027 年暑期开课，2 学分，32 学时。</h2>
+          </div>
+          <div class="info-box reveal">
+            <div>
+              <p>
+                课程面向刚念完大一的学生，以项目实践为主。32 学时里你会从一个物理问题出发，做出一个能展示的交互工件，结课时当场讲给别人听。
+              </p>
+              <p>
+                课上用 Python、Git 和各种 AI 工具。工具怎么选你自己定，但最后交的东西必须过三关：别人看得懂、能跑通、结果自己审过。
+              </p>
+            </div>
+            <ul class="info-list">
+              <li><b>课程名称：</b>AI 辅助数理建模与应用实践</li>
+              <li><b>开课时间：</b>2027 年暑期</li>
+              <li><b>学分学时：</b>2 学分，32 学时</li>
+              <li><b>课程形式：</b>课堂演示 + 上机实操 + 项目展示</li>
+              <li><b>结课成果：</b>一个能运行、经得起问、可展示的物理交互项目</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <span>// AI 辅助数理建模与应用实践 · <b>VIBE PHYSICS</b></span>
+        <span>2027 SUMMER PROGRAM · 2 学分 / 32 学时</span>
+      </div>
+    </footer>
+
+    <script>
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll(".reveal").forEach((el, i) => {
+        el.style.transitionDelay = (i % 5) * 60 + "ms";
+        io.observe(el);
+      });
+
+      // 视差网格随滚动轻微移动
+      const grid = document.querySelector(".bg-grid");
+      let ticking = false;
+      window.addEventListener("scroll", () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const y = window.scrollY * 0.04;
+          grid.style.backgroundPosition = `0 ${y}px, ${y}px 0`;
+          ticking = false;
+        });
+      }, { passive: true });
+    </script>
+  </body>
+</html>
