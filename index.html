@@ -7,1307 +7,925 @@
       name="description"
       content="AI 辅助数理建模与应用实践，2027 年暑期课程，面向完成大一学习的学生，2 学分，32 学时。"
     />
-    <title>AI 辅助数理建模与应用实践 | 2027 年暑期课程</title>
+    <title>AI 辅助数理建模与应用实践 // 2027 SUMMER</title>
 
-    <!-- 字体：对齐 ppt 设计系统（Inter + Noto Sans SC） -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
       :root {
-        /* 全新设计语言：Fine Physics Notebook × Summer Research Catalog */
-        --paper: #f8f5ef;
-        --paper-deep: #f2ede3;
-        --ink: #0d0d0c;
-        --ink-muted: #4a4a47;
-        --ink-light: #6b6b67;
-        --line: #d9d4c8;
-        --accent: #002FA7;           /* Klein Blue IKB — 课程签名色 */
-        --accent-2: #4a7c72;         /* 柔和青绿，来自讲义插画 */
-        --accent-warm: #b36b3e;      /* 温暖陶土橙 */
-        --navy: #0a111f;
+        /* 未来科幻 / 深空 HUD 全息界面 */
+        --void: #04060f;
+        --void-2: #070b1a;
+        --panel: rgba(14, 22, 46, 0.55);
+        --panel-solid: #0a1124;
+        --line: rgba(0, 229, 255, 0.16);
+        --line-strong: rgba(0, 229, 255, 0.42);
 
-        --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-        --shadow-md: 0 8px 30px rgba(0,0,0,0.07);
-        --shadow-lg: 0 20px 60px rgba(0,0,0,0.09);
+        --cyan: #00e5ff;
+        --magenta: #ff2bd6;
+        --violet: #7c4dff;
+        --lime: #b6ff3c;
 
-        --radius: 6px;
-        --radius-lg: 10px;
+        --text: #dff3ff;
+        --text-muted: #8aa0c4;
+        --text-dim: #5b6e93;
 
-        /* 字体（极致克制高级） */
-        --font-sans: "Inter", "Noto Sans SC", system-ui, -apple-system, "PingFang SC", sans-serif;
-        --font-serif: "Noto Serif SC", Georgia, "Songti SC", serif;
+        --glow-cyan: 0 0 24px rgba(0, 229, 255, 0.45);
+        --glow-mag: 0 0 24px rgba(255, 43, 214, 0.4);
+
+        --font-display: "Orbitron", "Noto Sans SC", sans-serif;
+        --font-body: "Rajdhani", "Noto Sans SC", system-ui, sans-serif;
+        --font-mono: "JetBrains Mono", "SFMono-Regular", monospace;
+        --font-cn: "Noto Sans SC", system-ui, -apple-system, sans-serif;
       }
 
       * { box-sizing: border-box; }
-
       html { scroll-behavior: smooth; }
 
       body {
         margin: 0;
-        color: var(--ink);
-        background: var(--paper);
-        font-family: var(--font-sans);
-        font-size: 15.5px;
-        line-height: 1.78;
+        color: var(--text);
+        background: var(--void);
+        font-family: var(--font-cn);
+        font-size: 16px;
+        line-height: 1.8;
         -webkit-font-smoothing: antialiased;
-        font-feature-settings: "tnum" 1;
+        overflow-x: hidden;
       }
 
       a { color: inherit; text-decoration: none; }
-
       img { display: block; width: 100%; }
 
-      /* 极细腻的纸张纹理 */
-      .page {
-        background-image: 
-          linear-gradient(rgba(13,13,12,0.018) 1px, transparent 1px);
-        background-size: 24px 24px;
+      /* ===== 背景：星空 + 网格 + 极光 ===== */
+      .bg {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background:
+          radial-gradient(1200px 800px at 78% -10%, rgba(124, 77, 255, 0.22), transparent 60%),
+          radial-gradient(1000px 700px at 8% 12%, rgba(0, 229, 255, 0.16), transparent 55%),
+          radial-gradient(900px 900px at 60% 110%, rgba(255, 43, 214, 0.14), transparent 60%),
+          var(--void);
+      }
+      .bg-grid {
+        position: fixed;
+        inset: -50%;
+        z-index: -1;
+        background-image:
+          linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
+        background-size: 48px 48px;
+        transform: perspective(600px) rotateX(0deg);
+        mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 35%, transparent 80%);
+        -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 35%, transparent 80%);
+      }
+      /* 扫描线 */
+      .scanlines {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        pointer-events: none;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 0px,
+          rgba(0, 0, 0, 0) 2px,
+          rgba(0, 0, 0, 0.05) 3px,
+          rgba(0, 0, 0, 0) 4px
+        );
+        mix-blend-mode: overlay;
+        opacity: 0.5;
       }
 
+      /* ===== 顶栏 HUD ===== */
       .topbar {
         position: fixed;
         z-index: 100;
-        top: 0;
-        left: 0;
-        right: 0;
+        top: 0; left: 0; right: 0;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 18px clamp(28px, 5.5vw, 72px);
-        background: rgba(248,245,239,0.96);
+        padding: 16px clamp(20px, 5vw, 64px);
+        background: linear-gradient(180deg, rgba(4, 6, 15, 0.92), rgba(4, 6, 15, 0.4));
         border-bottom: 1px solid var(--line);
-        backdrop-filter: blur(20px);
+        backdrop-filter: blur(14px);
       }
-
       .brand {
-        font-family: var(--font-sans);
-        font-size: 13.5px;
-        font-weight: 700;
-        letter-spacing: -0.3px;
-        color: var(--ink);
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
       }
-
+      .brand strong {
+        font-family: var(--font-display);
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: var(--text);
+        text-shadow: var(--glow-cyan);
+      }
       .brand span {
-        font-weight: 400;
-        color: var(--ink-light);
-        margin-left: 8px;
-        font-size: 12.5px;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--cyan);
+        letter-spacing: 1px;
       }
-
       .nav {
         display: flex;
-        gap: 32px;
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--ink-muted);
+        gap: 26px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 0.5px;
+        color: var(--text-muted);
       }
-
       .nav a {
         position: relative;
-        padding-bottom: 2px;
-        transition: color 0.2s ease;
+        padding: 4px 2px;
+        transition: color 0.2s, text-shadow 0.2s;
       }
+      .nav a::before { content: "/"; color: var(--text-dim); margin-right: 6px; }
+      .nav a:hover { color: var(--cyan); text-shadow: var(--glow-cyan); }
 
-      .nav a:hover {
-        color: var(--accent);
-      }
+      /* ===== 通用区块 ===== */
+      main { position: relative; z-index: 1; }
+      section { padding: clamp(72px, 11vh, 130px) clamp(20px, 5vw, 64px); }
+      .wrap { width: min(1180px, 100%); margin: 0 auto; }
 
-      .nav a.active::after {
-        content: '';
-        position: absolute;
-        bottom: -1px;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background: var(--accent);
-      }
-
-      .hero {
-        position: relative;
-        min-height: 94svh;
-        display: flex;
-        align-items: center;
-        background: var(--paper);
-        overflow: hidden;
-      }
-
-      .hero::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background-image: url("assets/hero-vibe-physics.png");
-        background-size: cover;
-        background-position: 42% 38%;
-        opacity: 0.18;
-        z-index: 0;
-      }
-
-      .hero-inner {
-        position: relative;
-        z-index: 2;
-        display: grid;
-        grid-template-columns: 1fr 360px;
-        gap: 72px;
-        width: min(1180px, calc(100% - 56px));
-        margin: 0 auto;
-        padding: 138px 0 80px;
-        align-items: center;
-      }
-
-      .hero-content h1 {
-        font-family: var(--font-serif);
-        font-size: clamp(58px, 6.8vw, 88px);
-        line-height: 0.92;
-        font-weight: 800;
-        letter-spacing: -2.4px;
-        margin-bottom: 24px;
-      }
-
-      .hero-content .subtitle {
-        font-size: 18px;
-        line-height: 1.68;
-        color: var(--ink-muted);
-        max-width: 540px;
-        margin-bottom: 38px;
-      }
-
-      .hero-actions {
-        display: flex;
-        gap: 14px;
-      }
-
-      .pill {
-        display: inline-block;
-        font-size: 11px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        padding: 3px 12px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        color: var(--ink-light);
-        margin-bottom: 20px;
-      }
-
-      .hero-process {
-        background: var(--paper-deep);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-lg);
-        padding: 28px 24px 24px;
-      }
-
-      h1, h2, h3 {
-        margin: 0;
-        font-family: var(--font-serif);
-        font-feature-settings: "tnum" 1;
-      }
-
-      h1 {
-        max-width: 860px;
-        margin-top: 16px;
-        font-size: clamp(48px, 6.2vw, 86px);
-        line-height: 0.94;
-        font-weight: 800;
-        letter-spacing: -1.2px;
-      }
-
-      .hero-text {
-        max-width: 700px;
-        margin: 24px 0 0;
-        color: rgba(255, 255, 255, 0.88);
-        font-family: var(--font-sans);
-        font-size: clamp(17px, 1.95vw, 21px);
-        line-height: 1.62;
-        font-weight: 400;
-      }
-
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
-        margin-top: 36px;
-      }
-
-      .button {
+      .kicker {
         display: inline-flex;
         align-items: center;
-        justify-content: center;
-        height: 46px;
-        padding: 0 26px;
-        border-radius: 999px;
-        font-family: var(--font-sans);
-        font-weight: 600;
-        font-size: 14px;
-        letter-spacing: 0.2px;
-        transition: all 0.2s ease;
-        border: 1px solid var(--line);
-      }
-
-      .button.primary {
-        background: var(--accent);
-        color: white;
-        border-color: var(--accent);
-      }
-
-      .button.secondary {
-        background: transparent;
-        color: var(--ink);
-      }
-
-      .button:hover {
-        transform: translateY(-1px);
-      }
-
-
-
-      section {
-        padding: 92px clamp(24px, 5vw, 80px);
-      }
-
-      .wrap {
-        width: min(1120px, 100%);
-        margin: 0 auto;
-      }
-
-      .section-head {
-        margin-bottom: 48px;
-        max-width: 720px;
-      }
-
-      .label {
-        font-family: var(--font-sans);
-        font-size: 11px;
-        font-weight: 700;
+        gap: 10px;
+        font-family: var(--font-mono);
+        font-size: 12px;
         letter-spacing: 2px;
+        color: var(--cyan);
         text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 10px;
-        display: block;
+        margin-bottom: 18px;
+      }
+      .kicker::before {
+        content: "";
+        width: 28px; height: 1px;
+        background: var(--cyan);
+        box-shadow: var(--glow-cyan);
       }
 
       h2 {
-        font-family: var(--font-serif);
-        font-size: clamp(28px, 3.1vw, 42px);
-        line-height: 1.12;
+        margin: 0;
+        font-family: var(--font-cn);
         font-weight: 700;
-        letter-spacing: -0.8px;
+        font-size: clamp(26px, 3.6vw, 46px);
+        line-height: 1.22;
+        letter-spacing: -0.5px;
+        color: var(--text);
       }
-
       .lead {
-        margin-top: 16px;
-        color: var(--ink-muted);
-        font-size: 15.8px;
-        line-height: 1.72;
-        max-width: 640px;
-      }
-
-      .overview {
-        background: var(--paper);
-      }
-
-      .facts {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 1px;
-        border: 1px solid var(--line);
-        background: var(--line);
-        box-shadow: var(--shadow-md);
-        border-radius: var(--radius);
-        overflow: hidden;
-      }
-
-      .fact {
-        min-height: 138px;
-        padding: 22px 20px;
-        background: var(--surface);
-      }
-
-      .fact b {
-        display: block;
-        margin-bottom: 6px;
-        color: var(--accent);
-        font-size: 26px;
-        line-height: 1;
-        font-weight: 700;
-      }
-
-      .fact span {
-        color: var(--ink-muted);
-        font-size: 13.2px;
-        font-weight: 500;
-      }
-
-      .claim {
-        margin-top: 26px;
-        padding: clamp(24px, 4vw, 38px) clamp(26px, 4vw, 44px);
-        color: var(--ink);
-        border-radius: var(--radius-lg);
-        background: var(--paper-warm);
-        border: 1px solid var(--line);
-        box-shadow: var(--shadow-sm);
-      }
-
-      .claim p {
-        max-width: 740px;
-        margin: 0;
-        color: var(--ink-muted);
-        font-size: clamp(17.5px, 1.95vw, 23px);
-        line-height: 1.58;
-      }
-
-      .learn {
-        background: var(--paper);
-      }
-
-
-
-
-
-      h3 {
-        margin: 0 0 9px;
-        font-size: 19.5px;
-        line-height: 1.3;
-        font-weight: 700;
-      }
-
-      .learn-item p,
-      .unit p,
-      .project p,
-      .rule p {
-        margin: 0;
-        color: var(--ink-muted);
-        font-family: var(--font-sans);
-        font-size: 14px;
-        line-height: 1.66;
-        font-weight: 400;
-      }
-
-      .units {
-        background: var(--paper);
-      }
-
-      .unit-list {
-        display: grid;
-        gap: 13px;
-        position: relative;
-      }
-
-      .unit {
-        display: grid;
-        grid-template-columns: 108px minmax(0, 1fr) minmax(240px, 0.58fr);
-        gap: 28px;
-        align-items: start;
-        padding: 26px 26px 26px 30px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius-lg);
-        background: var(--surface);
-        box-shadow: var(--shadow-sm);
-        position: relative;
-        transition: box-shadow 0.2s ease;
-      }
-
-      .unit:hover {
-        box-shadow: var(--shadow-md);
-      }
-
-      .unit time {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 26px;
-        padding: 0 11px;
-        border-radius: 999px;
-        color: var(--accent);
-        background: rgba(0, 47, 167, 0.08);
-        font-family: var(--font-sans);
-        font-size: 11.5px;
-        font-weight: 700;
-        letter-spacing: 0.4px;
-        white-space: nowrap;
-      }
-
-      .unit ul {
-        display: grid;
-        gap: 6px;
-        margin: 8px 0 0;
-        padding-left: 18px;
-        color: var(--ink-muted);
-        font-size: 14.1px;
-      }
-
-      .unit ul li::marker {
-        color: var(--accent);
-      }
-
-      .projects {
-        background: var(--paper);
-      }
-
-      .project-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 14px;
-      }
-
-      .project {
-        min-height: 162px;
-        padding: 19px 20px 21px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius-lg);
-        background: var(--surface);
-        box-shadow: var(--shadow-sm);
-        transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .project:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-md);
-        border-color: rgba(15, 143, 140, 0.22);
-      }
-
-      .project b {
-        display: inline-flex;
-        align-items: center;
-        margin-bottom: 13px;
-        padding: 2px 10px;
-        border-radius: 999px;
-        color: #fff;
-        background: var(--accent);
-        font-size: 11px;
-        font-weight: 800;
-        letter-spacing: 0.3px;
-      }
-
-      .project:nth-child(4n+2) b,
-      .project:nth-child(4n+3) b {
-        background: var(--accent-warm);
-      }
-
-      .project:nth-child(4n) b {
-        background: var(--accent-blue);
-      }
-
-      .project h3 {
-        font-family: var(--font-serif);
+        margin-top: 18px;
+        max-width: 680px;
+        color: var(--text-muted);
         font-size: 16.5px;
-        line-height: 1.3;
-        margin-bottom: 5px;
-        font-weight: 700;
+        line-height: 1.8;
+      }
+      .section-head { margin-bottom: 52px; max-width: 760px; }
+
+      .glow-text {
+        background: linear-gradient(100deg, var(--cyan), var(--violet) 50%, var(--magenta));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
       }
 
-      .project p {
-        font-family: var(--font-sans);
-        font-size: 13.2px;
-        line-height: 1.6;
-        color: var(--ink-muted);
-        font-weight: 400;
-      }
-
-      .assessment {
-        background: var(--paper);
-      }
-
-      .assessment-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(300px, 0.52fr);
-        gap: clamp(32px, 5vw, 68px);
-        align-items: start;
-      }
-
-      .score-list {
-        display: grid;
-        gap: 9px;
-      }
-
-      .score {
-        display: grid;
-        grid-template-columns: 82px 1fr;
-        gap: 18px;
-        align-items: center;
-        padding: 16px 19px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius-lg);
-        background: var(--surface);
-      }
-
-      .score b {
-        color: var(--accent);
-        font-family: var(--font-sans);
-        font-size: 22px;
-        font-weight: 800;
-      }
-
-      .score span {
-        color: var(--ink-muted);
-        font-family: var(--font-sans);
-        font-size: 13.8px;
-      }
-
-      .rules {
-        display: grid;
-        gap: 11px;
-      }
-
-      .rule {
-        padding: 19px 21px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius-lg);
-        background: var(--surface);
-      }
-
-      .rule h3 {
-        color: var(--accent);
-        font-family: var(--font-serif);
-        font-size: 16.5px;
-        margin-bottom: 4px;
-        font-weight: 700;
-      }
-
-      .info {
-        color: var(--ink);
-        background: var(--paper-warm);
-      }
-
-      .info .label {
-        color: rgba(255, 255, 255, 0.78);
-      }
-
-      .info .label::before {
-        color: #fff;
-        background: rgba(255, 255, 255, 0.14);
-      }
-
-      .info-box {
-        display: grid;
-        grid-template-columns: minmax(0, 0.78fr) minmax(280px, 0.48fr);
-        gap: clamp(32px, 5vw, 68px);
-        align-items: start;
-        padding: clamp(28px, 5vw, 46px);
-        border: 1px solid var(--line);
-        border-radius: var(--radius-lg);
-        background: var(--paper);
-        box-shadow: var(--shadow-sm);
-      }
-
-      .info h2 {
-        color: var(--ink);
-        font-size: clamp(24px, 2.8vw, 36px);
-      }
-
-      .info p {
-        margin: 14px 0 0;
-        color: var(--ink-muted);
-        font-size: 14.8px;
-        line-height: 1.68;
-      }
-
-      .info-list {
-        display: grid;
-        gap: 7px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .info-list li {
-        padding: 12px 15px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: var(--paper-warm);
-        font-family: var(--font-sans);
-        font-size: 13.5px;
-      }
-
-      .footer {
-        padding: 22px clamp(22px, 5vw, 72px);
-        color: var(--ink-light);
-        background: var(--paper);
-        border-top: 1px solid var(--line);
-        font-family: var(--font-sans);
-        font-size: 12px;
-      }
-
-      .footer-inner {
+      /* ===== HERO ===== */
+      .hero {
+        position: relative;
+        min-height: 100svh;
         display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        width: min(1160px, 100%);
-        margin: 0 auto;
         align-items: center;
+        padding-top: 90px;
       }
-
-      .js .fade-in,
-      .anime-ready .fade-in {
-        opacity: 0;
-        transform: translateY(22px);
-      }
-
-      .js .fade-in.visible,
-      .anime-ready .fade-in.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      @media (max-width: 980px) {
-        .topbar {
-          position: absolute;
-        }
-
-        .nav {
-          display: none;
-        }
-
-        .hero-inner,
-        .section-head,
-        .assessment-grid,
-        .info-box {
-          grid-template-columns: 1fr;
-        }
-
-        .hero-inner {
-          min-height: auto;
-          padding-top: 110px;
-        }
-
-        .facts {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-
-        .learn > .wrap > div[style*="grid-template-columns:repeat(4,1fr)"] {
-          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        }
-
-        .project-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .unit {
-          grid-template-columns: 1fr;
-          padding: 22px 22px 22px 26px;
-        }
-      }
-
-      @media (max-width: 680px) {
-        .hero-inner {
-          width: min(100% - 32px, 1120px);
-          padding-top: 108px;
-        }
-
-        .facts {
-          grid-template-columns: 1fr;
-        }
-        .learn > .wrap > div[style*="grid-template-columns:repeat(4,1fr)"] {
-          grid-template-columns: 1fr !important;
-        }
-        .project-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .fact {
-          min-height: auto;
-        }
-
-        .card-note {
-          grid-template-columns: 1fr;
-        }
-
-        .score {
-          grid-template-columns: 70px 1fr;
-        }
-
-        .footer-inner {
-          flex-direction: column;
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-
-        *,
-        *::before,
-        *::after {
-          animation-duration: 0.001ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.001ms !important;
-        }
-
-        .js .fade-in,
-        .anime-ready .fade-in {
-          opacity: 1;
-          transform: none;
-        }
-      }
-
-      /* 项目库三轴筛选 */
-      .project-filters {
+      .hero-inner {
         display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: clamp(32px, 5vw, 72px);
+        align-items: center;
+        width: min(1180px, 100%);
+        margin: 0 auto;
+      }
+      .hero-tag {
+        display: inline-flex;
+        align-items: center;
         gap: 10px;
+        padding: 6px 16px;
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 2px;
+        color: var(--cyan);
+        background: rgba(0, 229, 255, 0.06);
+        box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.08);
         margin-bottom: 26px;
       }
-      .filter-row {
-        display: flex;
-        flex-wrap: wrap;
+      .hero-tag .dot {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 10px var(--lime);
+        animation: pulse 1.6s infinite;
+      }
+      @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+      .hero h1 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: clamp(40px, 6.2vw, 88px);
+        line-height: 0.98;
+        letter-spacing: -1px;
+        color: var(--text);
+        text-shadow: 0 0 40px rgba(0, 229, 255, 0.25);
+      }
+      .hero h1 .cn {
+        display: block;
+        font-family: var(--font-cn);
+        font-weight: 900;
+        font-size: clamp(34px, 5vw, 66px);
+        line-height: 1.05;
+        margin-top: 12px;
+        letter-spacing: 2px;
+      }
+      .hero p.subtitle {
+        margin: 30px 0 38px;
+        max-width: 560px;
+        color: var(--text-muted);
+        font-size: 18px;
+        line-height: 1.78;
+      }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+
+      .btn {
+        display: inline-flex;
         align-items: center;
-        gap: 8px;
-      }
-      .filter-axis {
-        font-family: var(--font-sans);
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 1.5px;
+        gap: 10px;
+        padding: 13px 28px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        letter-spacing: 1px;
         text-transform: uppercase;
-        color: var(--ink-light);
-        width: 52px;
-        flex: none;
+        border-radius: 4px;
+        border: 1px solid var(--line-strong);
+        transition: all 0.22s ease;
+        position: relative;
+        overflow: hidden;
       }
-      .chip {
-        font-family: var(--font-sans);
-        font-size: 12.5px;
-        font-weight: 500;
-        color: var(--ink-muted);
-        padding: 4px 13px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: var(--paper);
-        cursor: pointer;
-        transition: all 0.18s ease;
+      .btn.primary {
+        color: var(--void);
+        background: linear-gradient(100deg, var(--cyan), var(--violet));
+        border-color: transparent;
+        box-shadow: 0 0 28px rgba(0, 229, 255, 0.4);
+        font-weight: 700;
       }
-      .chip:hover {
-        border-color: var(--accent);
-        color: var(--accent);
+      .btn.primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(0, 229, 255, 0.6); }
+      .btn.ghost { color: var(--cyan); background: rgba(0, 229, 255, 0.04); }
+      .btn.ghost:hover { background: rgba(0, 229, 255, 0.12); border-color: var(--cyan); }
+
+      /* HERO 右侧：全息工作流面板 */
+      .hud-panel {
+        position: relative;
+        padding: 26px 24px;
+        border: 1px solid var(--line-strong);
+        border-radius: 12px;
+        background: var(--panel);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 0 50px rgba(0, 229, 255, 0.08), inset 0 0 40px rgba(124, 77, 255, 0.06);
       }
-      .chip.active {
-        background: var(--accent);
-        border-color: var(--accent);
-        color: #fff;
-      }
-      .project {
-        transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1),
-          box-shadow 0.2s ease, opacity 0.25s ease, filter 0.25s ease;
-      }
-      .project.dim {
-        opacity: 0.26;
-        filter: grayscale(0.7);
+      .hud-panel::before {
+        content: "";
+        position: absolute; inset: 0;
+        border-radius: 12px;
+        padding: 1px;
+        background: linear-gradient(140deg, var(--cyan), transparent 40%, transparent 60%, var(--magenta));
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0.6;
         pointer-events: none;
       }
-      .ptags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-        margin-top: 12px;
+      .hud-head {
+        display: flex; justify-content: space-between; align-items: center;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: var(--text-dim);
+        margin-bottom: 22px;
       }
-      .ptags span {
-        font-family: var(--font-sans);
-        font-size: 10.5px;
-        font-weight: 500;
-        color: var(--ink-light);
-        padding: 1px 8px;
+      .hud-head b { color: var(--cyan); font-weight: 500; }
+      .corner { width: 12px; height: 12px; border-top: 1px solid var(--cyan); border-right: 1px solid var(--cyan); }
+
+      .flow-step {
+        display: grid;
+        grid-template-columns: 38px 1fr;
+        gap: 14px;
+        align-items: center;
+        padding: 14px 0;
+        border-bottom: 1px dashed var(--line);
+      }
+      .flow-step:last-child { border-bottom: none; }
+      .flow-num {
+        width: 38px; height: 38px;
+        display: grid; place-items: center;
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--cyan);
+        background: rgba(0, 229, 255, 0.06);
+      }
+      .flow-step.s2 .flow-num { color: var(--violet); border-color: rgba(124,77,255,0.5); background: rgba(124,77,255,0.08); }
+      .flow-step.s3 .flow-num { color: var(--magenta); border-color: rgba(255,43,214,0.45); background: rgba(255,43,214,0.08); }
+      .flow-step.s4 .flow-num { color: var(--lime); border-color: rgba(182,255,60,0.45); background: rgba(182,255,60,0.08); }
+      .flow-en { font-family: var(--font-display); font-size: 13px; font-weight: 600; letter-spacing: 0.5px; }
+      .flow-cn { font-size: 13px; color: var(--text-dim); }
+
+      /* ===== 数据条 / 统计 ===== */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 14px;
+        margin: 56px 0;
+      }
+      .stat {
+        position: relative;
+        padding: 24px 20px;
         border: 1px solid var(--line);
-        border-radius: 999px;
-        background: var(--paper-deep);
+        border-radius: 10px;
+        background: var(--panel);
+        backdrop-filter: blur(8px);
+        overflow: hidden;
+        transition: border-color 0.25s, transform 0.25s;
       }
-      .ptags span.lv {
-        color: var(--accent);
-        border-color: rgba(0, 47, 167, 0.25);
-        background: rgba(0, 47, 167, 0.06);
+      .stat::after {
+        content: "";
+        position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+        background: var(--cyan);
+        box-shadow: var(--glow-cyan);
+      }
+      .stat:hover { border-color: var(--line-strong); transform: translateY(-4px); }
+      .stat b {
+        display: block;
+        font-family: var(--font-display);
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--cyan);
+        line-height: 1;
+        text-shadow: var(--glow-cyan);
+      }
+      .stat span { display:block; margin-top: 8px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 1px; color: var(--text-muted); }
+
+      .manifesto {
+        padding: 34px 38px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: linear-gradient(120deg, rgba(124,77,255,0.08), rgba(0,229,255,0.04));
+        position: relative;
+      }
+      .manifesto::before {
+        content: "// ALERT";
+        position: absolute; top: -10px; left: 24px;
+        font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px;
+        color: var(--magenta);
+        background: var(--void);
+        padding: 0 8px;
+      }
+      .manifesto p { margin: 0; max-width: 720px; font-size: 17px; line-height: 1.78; color: var(--text-muted); }
+      .manifesto strong { color: var(--cyan); }
+
+      /* ===== 能力卡片 ===== */
+      .cap-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+      }
+      .cap {
+        position: relative;
+        padding: 28px 24px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--panel);
+        backdrop-filter: blur(8px);
+        transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+        overflow: hidden;
+      }
+      .cap:hover {
+        transform: translateY(-6px);
+        border-color: var(--line-strong);
+        box-shadow: 0 14px 40px rgba(0, 229, 255, 0.12);
+      }
+      .cap-id {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-dim);
+        letter-spacing: 1px;
+      }
+      .cap .ico { margin: 14px 0 16px; filter: drop-shadow(0 0 8px currentColor); }
+      .cap h3 {
+        margin: 0 0 10px;
+        font-family: var(--font-cn);
+        font-size: 19px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .cap p { margin: 0; font-size: 14.5px; line-height: 1.7; color: var(--text-muted); }
+
+      /* ===== 课程单元 ===== */
+      .unit {
+        display: grid;
+        grid-template-columns: 130px 1fr 0.85fr;
+        gap: 28px;
+        padding: 28px;
+        margin-bottom: 16px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--panel);
+        backdrop-filter: blur(8px);
+        position: relative;
+        transition: border-color 0.25s, transform 0.25s;
+      }
+      .unit:hover { border-color: var(--line-strong); transform: translateX(6px); }
+      .unit-tag {
+        align-self: start;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: var(--cyan);
+        padding: 6px 12px;
+        border: 1px solid var(--line-strong);
+        border-radius: 6px;
+        background: rgba(0,229,255,0.05);
+        white-space: nowrap;
+      }
+      .unit h3 { margin: 0 0 8px; font-family: var(--font-cn); font-size: 20px; font-weight: 700; color: var(--text); }
+      .unit > div > p { margin: 0; color: var(--text-muted); font-size: 14.5px; line-height: 1.7; }
+      .unit ul {
+        margin: 0; padding: 0; list-style: none;
+        display: grid; gap: 8px;
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+      .unit ul li { position: relative; padding-left: 20px; }
+      .unit ul li::before { content: "▹"; position: absolute; left: 0; color: var(--cyan); }
+
+      /* ===== 项目网格 ===== */
+      .proj-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 14px;
+      }
+      .proj {
+        position: relative;
+        padding: 22px 18px;
+        min-height: 168px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
+        backdrop-filter: blur(8px);
+        transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+        overflow: hidden;
+      }
+      .proj:hover {
+        transform: translateY(-6px) scale(1.02);
+        border-color: var(--line-strong);
+        box-shadow: 0 14px 36px rgba(124,77,255,0.18);
+      }
+      .proj .code {
+        display: inline-block;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--void);
+        background: var(--cyan);
+        padding: 2px 9px;
+        border-radius: 4px;
+        margin-bottom: 14px;
+        box-shadow: var(--glow-cyan);
+      }
+      .proj:nth-child(5n+2) .code { background: var(--magenta); box-shadow: var(--glow-mag); }
+      .proj:nth-child(5n+3) .code { background: var(--violet); box-shadow: 0 0 18px rgba(124,77,255,0.5); }
+      .proj:nth-child(5n+4) .code { background: var(--lime); box-shadow: 0 0 18px rgba(182,255,60,0.5); }
+      .proj h3 { margin: 0 0 6px; font-family: var(--font-cn); font-size: 16px; font-weight: 700; color: var(--text); }
+      .proj p { margin: 0; font-size: 13px; line-height: 1.6; color: var(--text-muted); }
+
+      /* ===== 考核 ===== */
+      .assess-grid {
+        display: grid;
+        grid-template-columns: 1fr 0.7fr;
+        gap: clamp(32px, 5vw, 68px);
+        align-items: start;
+      }
+      .score-list { display: grid; gap: 12px; margin-top: 28px; }
+      .score {
+        position: relative;
+        padding: 16px 20px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
+        overflow: hidden;
+      }
+      .score-head { display: flex; align-items: baseline; gap: 16px; }
+      .score b {
+        font-family: var(--font-display);
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--cyan);
+        text-shadow: var(--glow-cyan);
+      }
+      .score span { font-family: var(--font-cn); font-size: 15px; color: var(--text-muted); }
+      .bar { margin-top: 10px; height: 4px; border-radius: 4px; background: rgba(0,229,255,0.1); overflow: hidden; }
+      .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--cyan), var(--violet)); box-shadow: var(--glow-cyan); }
+
+      .rules { display: grid; gap: 14px; }
+      .rule {
+        padding: 20px 22px;
+        border: 1px solid var(--line);
+        border-left: 2px solid var(--magenta);
+        border-radius: 10px;
+        background: var(--panel);
+      }
+      .rule h3 { margin: 0 0 6px; font-family: var(--font-cn); font-size: 16px; font-weight: 700; color: var(--magenta); }
+      .rule p { margin: 0; font-size: 14px; line-height: 1.7; color: var(--text-muted); }
+
+      /* ===== 开课信息 ===== */
+      .info-box {
+        display: grid;
+        grid-template-columns: 1fr 0.75fr;
+        gap: clamp(32px, 5vw, 60px);
+        padding: clamp(32px, 4vw, 48px);
+        border: 1px solid var(--line-strong);
+        border-radius: 16px;
+        background: var(--panel);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 0 60px rgba(0,229,255,0.08);
+      }
+      .info-box p { color: var(--text-muted); font-size: 15.5px; line-height: 1.8; }
+      .info-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+      .info-list li {
+        padding: 14px 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(0,229,255,0.03);
+        font-family: var(--font-mono);
+        font-size: 13.5px;
+        color: var(--text-muted);
+      }
+      .info-list b { color: var(--cyan); font-weight: 500; }
+
+      /* ===== 页脚 ===== */
+      .footer {
+        padding: 28px clamp(20px, 5vw, 64px);
+        border-top: 1px solid var(--line);
+        background: rgba(4, 6, 15, 0.6);
+      }
+      .footer-inner {
+        display: flex; justify-content: space-between; align-items: center; gap: 20px;
+        width: min(1180px, 100%); margin: 0 auto;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 1px;
+        color: var(--text-dim);
+      }
+      .footer-inner b { color: var(--cyan); font-weight: 500; }
+
+      /* ===== 进场动画 ===== */
+      .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+      .reveal.in { opacity: 1; transform: none; }
+
+      /* ===== 响应式 ===== */
+      @media (max-width: 980px) {
+        .nav { display: none; }
+        .hero-inner { grid-template-columns: 1fr; }
+        .stats { grid-template-columns: repeat(2, 1fr); }
+        .cap-grid { grid-template-columns: repeat(2, 1fr); }
+        .proj-grid { grid-template-columns: repeat(2, 1fr); }
+        .unit { grid-template-columns: 1fr; }
+        .assess-grid, .info-box { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 560px) {
+        .stats { grid-template-columns: 1fr; }
+        .cap-grid, .proj-grid { grid-template-columns: 1fr; }
+        .footer-inner { flex-direction: column; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        .reveal { opacity: 1; transform: none; transition: none; }
+        .hero-tag .dot { animation: none; }
+        *, *::before, *::after { animation-duration: 0.001ms !important; }
       }
     </style>
   </head>
   <body>
+    <div class="bg"></div>
+    <div class="bg-grid"></div>
+
     <header class="topbar">
-      <a class="brand" href="#top" aria-label="课程首页">
-        <strong>AI 辅助数理建模与应用实践</strong>
-        <span>2027 年暑期课程</span>
+      <a class="brand" href="#top">
+        <strong>VIBE&nbsp;PHYSICS</strong>
+        <span>// AI 辅助数理建模与应用实践</span>
       </a>
-      <nav class="nav" aria-label="页面导航">
-        <a href="#overview">课程速览</a>
-        <a href="#learn">学习内容</a>
-        <a href="#projects">项目例子</a>
-        <a href="#assessment">考核方式</a>
-        <a href="#info">开课信息</a>
+      <nav class="nav" aria-label="导航">
+        <a href="#overview">OVERVIEW</a>
+        <a href="#learn">SKILLS</a>
+        <a href="#units">SYLLABUS</a>
+        <a href="#projects">MISSIONS</a>
+        <a href="#assessment">EVAL</a>
+        <a href="#info">ACCESS</a>
       </nav>
     </header>
 
     <main id="top">
-      <section class="hero" aria-label="课程介绍">
+      <!-- ===== HERO ===== -->
+      <section class="hero">
         <div class="hero-inner">
-          <div class="hero-content">
-            <div class="pill">2027 Summer Research Program</div>
-            <h1>AI 辅助数理建模<br>与应用实践</h1>
+          <div>
+            <div class="hero-tag"><span class="dot"></span> SYSTEM ONLINE · 2027 SUMMER PROGRAM</div>
+            <h1>
+              AI &times; PHYSICS
+              <span class="cn glow-text">数理建模与<br>应用实践</span>
+            </h1>
             <p class="subtitle">
-              给刚上完大一的物理学生。通过32学时、2学分的课程，从一个真实问题出发，用 AI 作为工具，做出一个自己能完全负责、别人能直接打开玩的物理交互项目。
+              给刚上完大一的物理学生。32 学时、2 学分，从一个真实问题出发，把 AI 当作工具，造出一个你能完全负责、别人能直接打开玩的物理交互项目。
             </p>
             <div class="hero-actions">
-              <a class="button primary" href="#learn" style="background:#002FA7;color:white;border-color:#002FA7">课程内容</a>
-              <a class="button secondary" href="#projects">项目案例</a>
+              <a class="btn primary" href="#learn">▶ 进入课程</a>
+              <a class="btn ghost" href="#projects">查看任务库</a>
             </div>
           </div>
 
-          <div class="hero-process" style="padding: 26px 22px 20px;">
-            <div style="font-size:10px; letter-spacing:2px; color:var(--ink-light); margin-bottom:14px; font-weight:600;">THE WORKFLOW</div>
-            <svg width="100%" height="auto" viewBox="0 0 360 310" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width:360px">
-              <path d="M55 55 L305 55" stroke="#d9d4c8" stroke-width="1"/>
-              <path d="M55 115 L305 115" stroke="#d9d4c8" stroke-width="1"/>
-              <path d="M55 175 L305 175" stroke="#d9d4c8" stroke-width="1"/>
-              <path d="M55 235 L305 235" stroke="#d9d4c8" stroke-width="1"/>
-
-              <g>
-                <circle cx="55" cy="55" r="6" fill="#002FA7"/>
-                <text x="72" y="52" font-family="Inter, system-ui" font-size="14" fill="#0d0d0c" font-weight="700">Define</text>
-                <text x="72" y="68" font-family="Inter, system-ui" font-size="12" fill="#6b6b67">问题定义 + 物理判断</text>
-              </g>
-              <g>
-                <circle cx="55" cy="115" r="6" fill="#4a7c72"/>
-                <text x="72" y="112" font-family="Inter, system-ui" font-size="14" fill="#0d0d0c" font-weight="700">Model</text>
-                <text x="72" y="128" font-family="Inter, system-ui" font-size="12" fill="#6b6b67">量纲、模型、架构</text>
-              </g>
-              <g>
-                <circle cx="55" cy="175" r="6" fill="#b36b3e"/>
-                <text x="72" y="172" font-family="Inter, system-ui" font-size="14" fill="#0d0d0c" font-weight="700">Build with AI</text>
-                <text x="72" y="188" font-family="Inter, system-ui" font-size="12" fill="#6b6b67">指挥 AI 实现 + 迭代</text>
-              </g>
-              <g>
-                <circle cx="55" cy="235" r="6" fill="#002FA7"/>
-                <text x="72" y="232" font-family="Inter, system-ui" font-size="14" fill="#0d0d0c" font-weight="700">Verify &amp; Ship</text>
-                <text x="72" y="248" font-family="Inter, system-ui" font-size="12" fill="#6b6b67">物理验证 + 可运行工件</text>
-              </g>
-            </svg>
-          </div>
+          <aside class="hud-panel" aria-label="工作流">
+            <div class="hud-head">
+              <span>WORKFLOW · PROTOCOL v3.3</span>
+              <span class="corner"></span>
+            </div>
+            <div class="flow-step s1">
+              <div class="flow-num">01</div>
+              <div><div class="flow-en">DEFINE</div><div class="flow-cn">问题定义 + 物理判断</div></div>
+            </div>
+            <div class="flow-step s2">
+              <div class="flow-num">02</div>
+              <div><div class="flow-en">MODEL</div><div class="flow-cn">量纲、模型、架构</div></div>
+            </div>
+            <div class="flow-step s3">
+              <div class="flow-num">03</div>
+              <div><div class="flow-en">BUILD WITH AI</div><div class="flow-cn">指挥 AI 实现 + 迭代</div></div>
+            </div>
+            <div class="flow-step s4">
+              <div class="flow-num">04</div>
+              <div><div class="flow-en">VERIFY &amp; SHIP</div><div class="flow-cn">物理验证 + 可运行工件</div></div>
+            </div>
+          </aside>
         </div>
       </section>
 
-      <section class="overview" id="overview">
+      <!-- ===== 课程定位 ===== -->
+      <section id="overview">
         <div class="wrap">
-          <div class="section-head">
-            <p class="label">01 — 课程定位</p>
-            <h2>这不是一门教你用 AI 写代码的课。<br>这是一门教你如何用 AI 做出值得相信的物理工作的课。</h2>
+          <div class="section-head reveal">
+            <span class="kicker">01 / 课程定位</span>
+            <h2>这不是一门教你用 AI 写代码的课。<br><span class="glow-text">这是一门教你用 AI 做出值得相信的物理工作的课。</span></h2>
             <p class="lead">
-              通过32学时的学习，你会从一个真实物理问题出发，完整走完「定义 → 建模 → AI 实现 → 物理验证 → 交付可运行项目」的全过程。AI 是强大的工具，但最终的判断和责任永远在你。
+              通过 32 学时的学习，你会从一个真实物理问题出发，完整走完「定义 → 建模 → AI 实现 → 物理验证 → 交付可运行项目」的全过程。AI 是强大的工具，但最终的判断和责任永远在你。
             </p>
           </div>
 
-          <div class="facts" style="display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin: 52px 0 48px;">
-            <div style="background:var(--paper); padding:22px 20px;">
-              <div style="font-size:28px; font-weight:800; color:var(--accent); line-height:1;">2027</div>
-              <div style="font-size:13px; color:var(--ink-muted); margin-top:4px;">暑期集中</div>
-            </div>
-            <div style="background:var(--paper); padding:22px 20px;">
-              <div style="font-size:28px; font-weight:800; color:var(--accent); line-height:1;">2</div>
-              <div style="font-size:13px; color:var(--ink-muted); margin-top:4px;">学分</div>
-            </div>
-            <div style="background:var(--paper); padding:22px 20px;">
-              <div style="font-size:28px; font-weight:800; color:var(--accent); line-height:1;">32</div>
-              <div style="font-size:13px; color:var(--ink-muted); margin-top:4px;">学时</div>
-            </div>
-            <div style="background:var(--paper); padding:22px 20px;">
-              <div style="font-size:28px; font-weight:800; color:var(--accent); line-height:1;">4</div>
-              <div style="font-size:13px; color:var(--ink-muted); margin-top:4px;">核心单元</div>
-            </div>
-            <div style="background:var(--paper); padding:22px 20px;">
-              <div style="font-size:28px; font-weight:800; color:var(--accent); line-height:1;">1</div>
-              <div style="font-size:13px; color:var(--ink-muted); margin-top:4px;">完整项目</div>
-            </div>
+          <div class="stats reveal">
+            <div class="stat"><b>2027</b><span>暑期集中</span></div>
+            <div class="stat"><b>2</b><span>学分</span></div>
+            <div class="stat"><b>32</b><span>学时</span></div>
+            <div class="stat"><b>4</b><span>核心单元</span></div>
+            <div class="stat"><b>1</b><span>完整项目</span></div>
           </div>
 
-          <div class="claim" style="background:var(--paper-deep); border:1px solid var(--line); padding:32px 36px; border-radius:var(--radius-lg);">
-            <p style="font-size:15.5px; line-height:1.7; max-width:680px; color:var(--ink-muted);">
-              让 AI 把每一步都替你做了，短期确实省事。但提出问题、判断结果、担责任，这些本事只会越用越生疏。这门课不拦着你用 AI，但有一条硬线：<strong style="color:var(--ink)">关键的判断，得你自己做</strong>。
+          <div class="manifesto reveal">
+            <p>
+              让 AI 把每一步都替你做了，短期确实省事。但提出问题、判断结果、担责任，这些本事只会越用越生疏。这门课不拦着你用 AI，但有一条硬线：<strong>关键的判断，得你自己做。</strong>
             </p>
           </div>
         </div>
       </section>
 
-      <section class="learn" id="learn" style="background:var(--paper-deep);">
+      <!-- ===== 四个核心能力 ===== -->
+      <section id="learn">
         <div class="wrap">
-          <div class="section-head">
-            <p class="label">02 — 四个核心能力</p>
+          <div class="section-head reveal">
+            <span class="kicker">02 / 核心能力</span>
             <h2>你真正要练就的四件事</h2>
             <p class="lead">这些能力比任何具体工具都更重要，也更持久。</p>
           </div>
 
-          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:18px;">
-            <div style="background:var(--paper); border:1px solid var(--line); border-radius:var(--radius-lg); padding:26px 22px;">
-              <svg width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="var(--accent)" stroke-width="1.7"><circle cx="24" cy="24" r="15"/><path d="M24 13v11l7 4"/></svg>
-              <div style="margin:16px 0 8px; font-family:var(--font-serif); font-size:18.5px; font-weight:700;">说清问题</div>
-              <p style="font-size:14.2px; color:var(--ink-muted); line-height:1.68;">把模糊的想法变成精确的 spec。输入是什么？输出是什么？什么结果算成功？这是所有后续工作的根基。</p>
-            </div>
-            <div style="background:var(--paper); border:1px solid var(--line); border-radius:var(--radius-lg); padding:26px 22px;">
-              <svg width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="var(--accent-2)" stroke-width="1.7"><path d="M8 36 L18 26 L27 32 L40 16"/><circle cx="40" cy="16" r="3.5"/></svg>
-              <div style="margin:16px 0 8px; font-family:var(--font-serif); font-size:18.5px; font-weight:700;">建立模型</div>
-              <p style="font-size:14.2px; color:var(--ink-muted); line-height:1.68;">在写任何代码前，先用量纲、数量级、守恒关系做出物理判断。模型比实现更重要。</p>
-            </div>
-            <div style="background:var(--paper); border:1px solid var(--line); border-radius:var(--radius-lg); padding:26px 22px;">
-              <svg width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="var(--accent-warm)" stroke-width="1.7"><rect x="9" y="13" width="30" height="22" rx="2"/><path d="M15 20h9 M15 27h14 M32 33l4 3 4-3"/></svg>
-              <div style="margin:16px 0 8px; font-family:var(--font-serif); font-size:18.5px; font-weight:700;">指挥 AI</div>
-              <p style="font-size:14.2px; color:var(--ink-muted); line-height:1.68;">你不是让 AI 写代码，而是用清晰的意图驱动它。你必须能读懂、能修改、能为每一行负责。</p>
-            </div>
-            <div style="background:var(--paper); border:1px solid var(--line); border-radius:var(--radius-lg); padding:26px 22px;">
-              <svg width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="var(--accent)" stroke-width="1.7"><circle cx="20" cy="20" r="11"/><path d="M28 28l8 8 M17 22h6 M17 26h4"/></svg>
-              <div style="margin:16px 0 8px; font-family:var(--font-serif); font-size:18.5px; font-weight:700;">验证与交付</div>
-              <p style="font-size:14.2px; color:var(--ink-muted); line-height:1.68;">结果跑出来后，你要能用物理的方法证明它可信。最后交付的是一个别人能直接打开、能复现的真实工件。</p>
-            </div>
+          <div class="cap-grid">
+            <article class="cap reveal">
+              <div class="cap-id">CAP_01</div>
+              <svg class="ico" width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="var(--cyan)" stroke-width="1.7"><circle cx="24" cy="24" r="15"/><path d="M24 13v11l7 4"/></svg>
+              <h3>说清问题</h3>
+              <p>把模糊的想法变成精确的 spec。输入是什么？输出是什么？什么结果算成功？这是所有后续工作的根基。</p>
+            </article>
+            <article class="cap reveal">
+              <div class="cap-id">CAP_02</div>
+              <svg class="ico" width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="var(--violet)" stroke-width="1.7"><path d="M8 36 L18 26 L27 32 L40 16"/><circle cx="40" cy="16" r="3.5"/></svg>
+              <h3>建立模型</h3>
+              <p>在写任何代码前，先用量纲、数量级、守恒关系做出物理判断。模型比实现更重要。</p>
+            </article>
+            <article class="cap reveal">
+              <div class="cap-id">CAP_03</div>
+              <svg class="ico" width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="var(--magenta)" stroke-width="1.7"><rect x="9" y="13" width="30" height="22" rx="2"/><path d="M15 20h9 M15 27h14 M32 33l4 3 4-3"/></svg>
+              <h3>指挥 AI</h3>
+              <p>你不是让 AI 写代码，而是用清晰的意图驱动它。你必须能读懂、能修改、能为每一行负责。</p>
+            </article>
+            <article class="cap reveal">
+              <div class="cap-id">CAP_04</div>
+              <svg class="ico" width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="var(--lime)" stroke-width="1.7"><circle cx="20" cy="20" r="11"/><path d="M28 28l8 8 M17 22h6 M17 26h4"/></svg>
+              <h3>验证与交付</h3>
+              <p>结果跑出来后，你要能用物理的方法证明它可信。最后交付的是一个别人能直接打开、能复现的真实工件。</p>
+            </article>
           </div>
         </div>
       </section>
 
-      <section class="units" id="units">
+      <!-- ===== 课程安排 ===== -->
+      <section id="units">
         <div class="wrap">
-          <div class="section-head fade-in">
-            <div>
-              <p class="label" data-index="03">课程安排</p>
-              <h2>32学时分成四个单元，每一段都是为了最后你能交出一个拿得出手的项目。</h2>
-            </div>
+          <div class="section-head reveal">
+            <span class="kicker">03 / 课程安排</span>
+            <h2>32 学时分成四个单元，每一段都为了最后你能交出一个拿得出手的项目。</h2>
             <p class="lead">
               我们不会把东西拆成零散的知识点小练习。你每天做的所有事，最后都要服务于一个目标：你能当着别人把自己的模型、代码和结论讲清楚。
             </p>
           </div>
 
-          <div class="unit-list">
-            <article class="unit fade-in">
-              <time>单元一</time>
-              <div>
-                <h3>问题定义与物理判断</h3>
-                <p>从量纲、数量级和边界条件入手，把一个模糊题目变成能动手的小项目。</p>
-              </div>
-              <ul>
-                <li>问题边界、变量和假设</li>
-                <li>量纲分析与费米估算</li>
-                <li>项目说明的基本写法</li>
-              </ul>
-            </article>
+          <article class="unit reveal">
+            <div class="unit-tag">UNIT_01</div>
+            <div>
+              <h3>问题定义与物理判断</h3>
+              <p>从量纲、数量级和边界条件入手，把一个模糊题目变成能动手的小项目。</p>
+            </div>
+            <ul>
+              <li>问题边界、变量和假设</li>
+              <li>量纲分析与费米估算</li>
+              <li>项目说明的基本写法</li>
+            </ul>
+          </article>
 
-            <article class="unit fade-in">
-              <time>单元二</time>
-              <div>
-                <h3>数值计算与代码阅读</h3>
-                <p>用最少的 Python 知识，完成微分方程、拟合、随机采样这些事。</p>
-              </div>
-              <ul>
-                <li>读懂 AI 生成的短程序</li>
-                <li>欧拉法、二维运动与参数扫描</li>
-                <li>拟合、残差和蒙特卡罗入门</li>
-              </ul>
-            </article>
+          <article class="unit reveal">
+            <div class="unit-tag">UNIT_02</div>
+            <div>
+              <h3>数值计算与代码阅读</h3>
+              <p>用最少的 Python 知识，完成微分方程、拟合、随机采样这些事。</p>
+            </div>
+            <ul>
+              <li>读懂 AI 生成的短程序</li>
+              <li>欧拉法、二维运动与参数扫描</li>
+              <li>拟合、残差和蒙特卡罗入门</li>
+            </ul>
+          </article>
 
-            <article class="unit fade-in">
-              <time>单元三</time>
-              <div>
-                <h3>结果验证与来源核验</h3>
-                <p>学会追问：这个结果到底可不可信？AI 给的公式和文献，是真的还是它编的？</p>
-              </div>
-              <ul>
-                <li>解析极限、守恒关系和单调性</li>
-                <li>参考值、文献和数据来源核验</li>
-                <li>AI 常见错误的发现办法</li>
-              </ul>
-            </article>
+          <article class="unit reveal">
+            <div class="unit-tag">UNIT_03</div>
+            <div>
+              <h3>结果验证与来源核验</h3>
+              <p>学会追问：这个结果到底可不可信？AI 给的公式和文献，是真的还是它编的？</p>
+            </div>
+            <ul>
+              <li>解析极限、守恒关系和单调性</li>
+              <li>参考值、文献和数据来源核验</li>
+              <li>AI 常见错误的发现办法</li>
+            </ul>
+          </article>
 
-            <article class="unit fade-in">
-              <time>单元四</time>
-              <div>
-                <h3>项目展示与方法整理</h3>
-                <p>把代码、图像、说明和验证记录，整理成别人能打开、能复现、能看懂的东西。</p>
-              </div>
-              <ul>
-                <li>交互页面或一键启动项目</li>
-                <li>AI 使用说明与验证记录</li>
-                <li>结课展示与答辩</li>
-              </ul>
-            </article>
-          </div>
+          <article class="unit reveal">
+            <div class="unit-tag">UNIT_04</div>
+            <div>
+              <h3>项目展示与方法整理</h3>
+              <p>把代码、图像、说明和验证记录，整理成别人能打开、能复现、能看懂的东西。</p>
+            </div>
+            <ul>
+              <li>交互页面或一键启动项目</li>
+              <li>AI 使用说明与验证记录</li>
+              <li>结课展示与答辩</li>
+            </ul>
+          </article>
         </div>
       </section>
 
-      <section class="projects" id="projects">
+      <!-- ===== 项目例子 ===== -->
+      <section id="projects">
         <div class="wrap">
-          <div class="section-head fade-in">
-            <div>
-              <p class="label" data-index="04">项目例子</p>
-              <h2>题目都卡在大学物理的范围里，但每个都要你做出完整的结果。</h2>
-            </div>
+          <div class="section-head reveal">
+            <span class="kicker">04 / 任务库</span>
+            <h2>题目都卡在大学物理的范围里，但每个都要你做出完整的结果。</h2>
             <p class="lead">
               你可以从给的题目里挑，也可以在差不多难度下自己想一个。题目不用多花哨，关键是模型经得起推敲、代码别人看得懂、结果自己审过，最后能做成一个拿得出手的东西。
             </p>
           </div>
 
-          <div class="project-filters" id="project-filters">
-            <div class="filter-row">
-              <span class="filter-axis">主题</span>
-              <button class="chip active" data-dim="all" data-val="all">全部</button>
-              <button class="chip" data-dim="topic" data-val="力学">力学</button>
-              <button class="chip" data-dim="topic" data-val="振动">振动</button>
-              <button class="chip" data-dim="topic" data-val="电路">电路</button>
-              <button class="chip" data-dim="topic" data-val="热学">热学</button>
-              <button class="chip" data-dim="topic" data-val="光学">光学</button>
-              <button class="chip" data-dim="topic" data-val="统计">统计</button>
-            </div>
-            <div class="filter-row">
-              <span class="filter-axis">方法</span>
-              <button class="chip" data-dim="method" data-val="ODE">微分方程</button>
-              <button class="chip" data-dim="method" data-val="拟合">拟合</button>
-              <button class="chip" data-dim="method" data-val="蒙特卡洛">蒙特卡洛</button>
-              <button class="chip" data-dim="method" data-val="线代">线性代数</button>
-              <button class="chip" data-dim="method" data-val="图像">图像与视频</button>
-            </div>
-            <div class="filter-row">
-              <span class="filter-axis">难度</span>
-              <button class="chip" data-dim="level" data-val="入门">入门</button>
-              <button class="chip" data-dim="level" data-val="进阶">进阶</button>
-            </div>
-          </div>
-
-          <div class="project-grid">
-            <article class="project fade-in" data-topic="力学 振动" data-method="ODE 图像" data-level="入门">
-              <b>P1</b>
-              <h3>大角度单摆</h3>
-              <p>比较精确周期和小角度近似，找出近似失效的范围。</p>
-              <div class="ptags"><span>力学</span><span>振动</span><span>微分方程</span><span class="lv">入门</span></div>
-            </article>
-            <article class="project fade-in" data-topic="力学" data-method="ODE" data-level="入门">
-              <b>P2</b>
-              <h3>含阻力抛体</h3>
-              <p>比较无阻力、线性阻力和二次阻力下的运动轨迹。</p>
-              <div class="ptags"><span>力学</span><span>微分方程</span><span class="lv">入门</span></div>
-            </article>
-            <article class="project fade-in" data-topic="电路" data-method="ODE" data-level="进阶">
-              <b>P3</b>
-              <h3>RLC 电路</h3>
-              <p>观察欠阻尼、临界阻尼和过阻尼下的充放电过程。</p>
-              <div class="ptags"><span>电路</span><span>微分方程</span><span class="lv">进阶</span></div>
-            </article>
-            <article class="project fade-in" data-topic="力学" data-method="ODE" data-level="进阶">
-              <b>P4</b>
-              <h3>行星轨道</h3>
-              <p>模拟中心力轨道，并用能量和角动量检查计算结果。</p>
-              <div class="ptags"><span>力学</span><span>微分方程</span><span class="lv">进阶</span></div>
-            </article>
-            <article class="project fade-in" data-topic="热学" data-method="ODE 拟合" data-level="入门">
-              <b>P5</b>
-              <h3>杯水冷却</h3>
-              <p>记录温度数据，用冷却模型拟合参数并检查残差。</p>
-              <div class="ptags"><span>热学</span><span>拟合</span><span class="lv">入门</span></div>
-            </article>
-            <article class="project fade-in" data-topic="振动" data-method="线代" data-level="进阶">
-              <b>P6</b>
-              <h3>弹簧振子链</h3>
-              <p>求简正频率，展示不同振动模式的形状。</p>
-              <div class="ptags"><span>振动</span><span>线性代数</span><span class="lv">进阶</span></div>
-            </article>
-            <article class="project fade-in" data-topic="统计" data-method="蒙特卡洛" data-level="入门">
-              <b>P7</b>
-              <h3>蒙特卡洛估算</h3>
-              <p>用随机采样估算圆周率或定积分，检查误差收敛。</p>
-              <div class="ptags"><span>统计</span><span>蒙特卡洛</span><span class="lv">入门</span></div>
-            </article>
-            <article class="project fade-in" data-topic="力学" data-method="图像 拟合" data-level="入门">
-              <b>P8</b>
-              <h3>视频测重力加速度</h3>
-              <p>从手机视频提取位置数据，拟合抛物线得到重力加速度。</p>
-              <div class="ptags"><span>力学</span><span>图像与视频</span><span>拟合</span><span class="lv">入门</span></div>
-            </article>
-            <article class="project fade-in" data-topic="统计" data-method="蒙特卡洛" data-level="入门">
-              <b>P9</b>
-              <h3>随机行走</h3>
-              <p>模拟大量随机行走，验证均方位移随步数的变化。</p>
-              <div class="ptags"><span>统计</span><span>蒙特卡洛</span><span class="lv">入门</span></div>
-            </article>
-            <article class="project fade-in" data-topic="光学" data-method="图像 拟合" data-level="进阶">
-              <b>P10</b>
-              <h3>光学衍射</h3>
-              <p>从衍射照片提取强度曲线，反推出单缝宽度。</p>
-              <div class="ptags"><span>光学</span><span>图像与视频</span><span>拟合</span><span class="lv">进阶</span></div>
-            </article>
+          <div class="proj-grid">
+            <article class="proj reveal"><span class="code">P1</span><h3>大角度单摆</h3><p>比较精确周期和小角度近似，找出近似失效的范围。</p></article>
+            <article class="proj reveal"><span class="code">P2</span><h3>含阻力抛体</h3><p>比较无阻力、线性阻力和二次阻力下的运动轨迹。</p></article>
+            <article class="proj reveal"><span class="code">P3</span><h3>RLC 电路</h3><p>观察欠阻尼、临界阻尼和过阻尼下的充放电过程。</p></article>
+            <article class="proj reveal"><span class="code">P4</span><h3>行星轨道</h3><p>模拟中心力轨道，并用能量和角动量检查计算结果。</p></article>
+            <article class="proj reveal"><span class="code">P5</span><h3>杯水冷却</h3><p>记录温度数据，用冷却模型拟合参数并检查残差。</p></article>
+            <article class="proj reveal"><span class="code">P6</span><h3>弹簧振子链</h3><p>求简正频率，展示不同振动模式的形状。</p></article>
+            <article class="proj reveal"><span class="code">P7</span><h3>蒙特卡罗估算</h3><p>用随机采样估算圆周率或定积分，检查误差收敛。</p></article>
+            <article class="proj reveal"><span class="code">P8</span><h3>视频测重力加速度</h3><p>从手机视频提取位置数据，拟合抛物线得到重力加速度。</p></article>
+            <article class="proj reveal"><span class="code">P9</span><h3>随机行走</h3><p>模拟大量随机行走，验证均方位移随步数的变化。</p></article>
+            <article class="proj reveal"><span class="code">P10</span><h3>光学衍射</h3><p>从衍射照片提取强度曲线，反推出单缝宽度。</p></article>
           </div>
         </div>
       </section>
 
-      <section class="assessment" id="assessment">
-        <div class="wrap assessment-grid">
-          <div class="fade-in">
-            <p class="label" data-index="05">考核方式</p>
+      <!-- ===== 考核方式 ===== -->
+      <section id="assessment">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="kicker">05 / 考核方式</span>
             <h2>没有闭卷考试。成绩主要看你做了什么、怎么做的、最后交出来的东西靠不靠谱。</h2>
-            <div class="score-list" aria-label="考核比例">
-              <div class="score">
-                <b>40%</b>
-                <span>结课项目与答辩</span>
-              </div>
-              <div class="score">
-                <b>25%</b>
-                <span>随堂实践与阶段作业</span>
-              </div>
-              <div class="score">
-                <b>20%</b>
-                <span>AI 使用记录与验证说明</span>
-              </div>
-              <div class="score">
-                <b>10%</b>
-                <span>课堂参与</span>
-              </div>
-              <div class="score">
-                <b>5%</b>
-                <span>同伴反馈</span>
-              </div>
-            </div>
           </div>
 
-          <div class="rules fade-in">
-            <article class="rule">
-              <h3>结果要能复现</h3>
-              <p>代码、参数、数据和运行方式放在一起，别人（包括课程结束后的你）能重新跑出主要结果。</p>
-            </article>
-            <article class="rule">
-              <h3>引用要能反查</h3>
-              <p>AI 给你的公式和文献，不能只抄一个看着像真的条目。你得能找到真正的出处。</p>
-            </article>
-            <article class="rule">
-              <h3>AI 使用要说清</h3>
-              <p>你让 AI 做了什么、它哪里错了、你是怎么改和验证的，这些都要在项目里写明白。</p>
-            </article>
+          <div class="assess-grid">
+            <div class="reveal">
+              <div class="score-list">
+                <div class="score"><div class="score-head"><b>40%</b><span>结课项目与答辩</span></div><div class="bar"><i style="width:100%"></i></div></div>
+                <div class="score"><div class="score-head"><b>25%</b><span>随堂实践与阶段作业</span></div><div class="bar"><i style="width:62.5%"></i></div></div>
+                <div class="score"><div class="score-head"><b>20%</b><span>AI 使用记录与验证说明</span></div><div class="bar"><i style="width:50%"></i></div></div>
+                <div class="score"><div class="score-head"><b>10%</b><span>课堂参与</span></div><div class="bar"><i style="width:25%"></i></div></div>
+                <div class="score"><div class="score-head"><b>5%</b><span>同伴反馈</span></div><div class="bar"><i style="width:12.5%"></i></div></div>
+              </div>
+            </div>
+
+            <div class="rules reveal">
+              <article class="rule"><h3>结果要能复现</h3><p>代码、参数、数据和运行方式放在一起，别人（包括课程结束后的你）能重新跑出主要结果。</p></article>
+              <article class="rule"><h3>引用要能反查</h3><p>AI 给你的公式和文献，不能只抄一个看着像真的条目。你得能找到真正的出处。</p></article>
+              <article class="rule"><h3>AI 使用要说清</h3><p>你让 AI 做了什么、它哪里错了、你是怎么改和验证的，这些都要在项目里写明白。</p></article>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="info" id="info">
-        <div class="wrap info-box fade-in">
-          <div>
-            <p class="label" data-index="06">开课信息</p>
+      <!-- ===== 开课信息 ===== -->
+      <section id="info">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <span class="kicker">06 / 开课信息</span>
             <h2>2027 年暑期开课，2 学分，32 学时。</h2>
-            <p>
-              课程面向刚念完大一的学生，以项目实践为主。32学时里你会从一个物理问题出发，做出一个能展示的交互工件，结课时当场讲给别人听。
-            </p>
-            <p>
-              课上用 Python、Git 和各种 AI 工具。工具怎么选你自己定，但最后交的东西必须过三关：别人看得懂、能跑通、结果自己审过。
-            </p>
           </div>
-          <ul class="info-list">
-            <li><b>课程名称：</b>AI 辅助数理建模与应用实践</li>
-            <li><b>开课时间：</b>2027 年暑期</li>
-            <li><b>学分学时：</b>2 学分，32 学时</li>
-            <li><b>课程形式：</b>课堂演示 + 上机实操 + 项目展示</li>
-            <li><b>结课成果：</b>一个能运行、经得起问、可展示的物理交互项目</li>
-          </ul>
+          <div class="info-box reveal">
+            <div>
+              <p>
+                课程面向刚念完大一的学生，以项目实践为主。32 学时里你会从一个物理问题出发，做出一个能展示的交互工件，结课时当场讲给别人听。
+              </p>
+              <p>
+                课上用 Python、Git 和各种 AI 工具。工具怎么选你自己定，但最后交的东西必须过三关：别人看得懂、能跑通、结果自己审过。
+              </p>
+            </div>
+            <ul class="info-list">
+              <li><b>课程名称：</b>AI 辅助数理建模与应用实践</li>
+              <li><b>开课时间：</b>2027 年暑期</li>
+              <li><b>学分学时：</b>2 学分，32 学时</li>
+              <li><b>课程形式：</b>课堂演示 + 上机实操 + 项目展示</li>
+              <li><b>结课成果：</b>一个能运行、经得起问、可展示的物理交互项目</li>
+            </ul>
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="footer">
       <div class="footer-inner">
-        <span>AI 辅助数理建模与应用实践</span>
-        <span>2027 年暑期课程</span>
+        <span>// AI 辅助数理建模与应用实践 · <b>VIBE PHYSICS</b></span>
+        <span>2027 SUMMER PROGRAM · 2 学分 / 32 学时</span>
       </div>
     </footer>
 
-    <script src="assets/anime.umd.min.js"></script>
     <script>
-      document.documentElement.classList.add("js");
-
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const motion = window.anime;
-      const canAnimate = Boolean(motion && !reduceMotion);
-
-      if (canAnimate) {
-        document.documentElement.classList.add("anime-ready");
-
-        const { animate, stagger } = motion;
-
-        document.querySelectorAll(".orbit-line, .orbit-return").forEach((path, index) => {
-          const length = path.getTotalLength();
-          path.style.strokeDasharray = length;
-          path.style.strokeDashoffset = length;
-          animate(path, {
-            strokeDashoffset: [length, 0],
-            duration: index ? 1500 : 1200,
-            delay: index ? 360 : 140,
-            ease: "inOutQuad",
-          });
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
         });
+      }, { threshold: 0.12 });
+      document.querySelectorAll(".reveal").forEach((el, i) => {
+        el.style.transitionDelay = (i % 5) * 60 + "ms";
+        io.observe(el);
+      });
 
-        animate(".orbit-node", {
-          opacity: [0, 1],
-          duration: 720,
-          delay: stagger(105),
-          ease: "out(3)",
+      // 视差网格随滚动轻微移动
+      const grid = document.querySelector(".bg-grid");
+      let ticking = false;
+      window.addEventListener("scroll", () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const y = window.scrollY * 0.04;
+          grid.style.backgroundPosition = `0 ${y}px, ${y}px 0`;
+          ticking = false;
         });
-
-        animate(".orbit-dot", {
-          translateX: [0, 104, 250, 122, 216, 0],
-          translateY: [0, -100, 28, 112, -84, 0],
-          duration: 6600,
-          loop: true,
-          ease: "inOutSine",
-        });
-
-        animate(".course-card", {
-          y: [18, 0],
-          opacity: [0, 1],
-          duration: 820,
-          ease: "out(3)",
-        });
-
-        document.querySelectorAll(".project").forEach((project) => {
-          project.addEventListener("mouseenter", () => {
-            animate(project, { y: -5, duration: 240, ease: "out(3)" });
-          });
-          project.addEventListener("mouseleave", () => {
-            animate(project, { y: 0, duration: 300, ease: "out(3)" });
-          });
-        });
-      }
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-
-            if (canAnimate) {
-              motion.animate(entry.target, {
-                opacity: [0, 1],
-                y: [22, 0],
-                duration: 640,
-                ease: "out(3)",
-              });
-            } else {
-              entry.target.classList.add("visible");
-            }
-
-            observer.unobserve(entry.target);
-          });
-        },
-        { threshold: 0.14 }
-      );
-
-      if (reduceMotion) {
-        document.querySelectorAll(".fade-in").forEach((element) => element.classList.add("visible"));
-      } else {
-        document.querySelectorAll(".fade-in").forEach((element) => observer.observe(element));
-      }
-
-      // 项目库三轴筛选：点标签高亮匹配项目，淡化其余
-      (function () {
-        const filters = document.getElementById("project-filters");
-        if (!filters) return;
-        const chips = filters.querySelectorAll(".chip");
-        const projects = document.querySelectorAll(".project-grid .project");
-
-        function apply(dim, val) {
-          projects.forEach((card) => {
-            const match = dim === "all" || (card.dataset[dim] || "").split(" ").includes(val);
-            card.classList.toggle("dim", !match);
-          });
-        }
-
-        chips.forEach((chip) => {
-          chip.addEventListener("click", () => {
-            chips.forEach((c) => c.classList.remove("active"));
-            chip.classList.add("active");
-            apply(chip.dataset.dim, chip.dataset.val);
-          });
-        });
-      })();
+      }, { passive: true });
     </script>
   </body>
 </html>
